@@ -1,4 +1,6 @@
 const { commandInterace } = require("./cli");
+var inquirer = require('inquirer');
+
 // Bootstrapping goes here
 // import libraries
 
@@ -7,4 +9,22 @@ const { commandInterace } = require("./cli");
 // Set up cli
 let cli = new commandInterace();
 
-// cli.getUp();
+
+async function run() {
+    let stay = true
+
+    while(stay) {
+        let answers = await inquirer.prompt([
+            {
+                type: 'confirm',
+                name: 'confirmationExit',
+                message: 'Do you want to continue?'
+            }
+        ]);
+        if (answers.confirmationExit) {
+            stay = false
+        }
+    }
+}
+
+run();
