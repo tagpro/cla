@@ -1,13 +1,33 @@
 const chalk = require('chalk');
 
+const CONSTANTS = {
+    ENTITIES: {
+        USERS: 'users',
+        ORGANISATIONS: 'organisations',
+        TICKETS: 'tickets',
+    },
+}
+
 const log = {
+    /**
+     * Function to determing if we want to apply chalk function or print
+     * an object natively.
+     *
+     * @param {Object} chalkInstance A chalk function used for output
+     * @param {Object} obj String/Object to be printed to console
+     */
+    print(chalkInstance, obj) {
+        return typeof obj === 'object' ? obj : chalkInstance(obj)
+    },
+
     /**
      * Function to handle all the error logs.
      * @param {string} message Error message
-     * @param {Object} error Error object is exists
+     * @param {object} error Error object is exists
      */
+
     error(message, error) {
-        console.log(chalk.bgRed(message));
+        console.log(this.print(chalk.bgRed, message));
         console.error(error);
     },
 
@@ -16,7 +36,17 @@ const log = {
      * @param {string} message Print the message to the console
      */
     message(message) {
-        console.log(chalk.cyan(message))
+        if (Array.isArray(message)) {
+            for (let m of message) {
+                console.log(this.print(chalk.cyan, m))
+            }
+        } else {
+            console.log(this.print(chalk.cyan, message))
+        }
+    },
+
+    simple(message) {
+        console.log(message);
     },
 
     /**
@@ -25,7 +55,7 @@ const log = {
      * console supports it
      */
     table(obj) {
-        if(console.hasOwnProperty('table')) {
+        if (console.hasOwnProperty('table')) {
             console.table(obj)
         } else {
             // Should work well if obj has toString
@@ -35,5 +65,6 @@ const log = {
 }
 
 module.exports = {
-    log
+    log,
+    CONSTANTS
 };

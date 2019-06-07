@@ -1,5 +1,5 @@
 const { commandInterace } = require("./cli");
-var inquirer = require('inquirer');
+const { prompt } = require('inquirer');
 const { log } = require('./utils');
 // Bootstrapping goes here
 // import libraries
@@ -19,15 +19,16 @@ async function run() {
 
     while (stay) {
         try {
-
-            let answers = await inquirer.prompt([
+            let entity = await cli.getSearch();
+            await cli.getSearchCriteria(entity);
+            let answer = await prompt([
                 {
                     type: 'confirm',
                     name: 'confirmationExit',
                     message: 'Do you want to continue?'
                 }
             ]);
-            if (!answers.confirmationExit) {
+            if (!answer.confirmationExit) {
                 stay = false
             }
         } catch (error) {
