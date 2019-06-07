@@ -2,9 +2,10 @@
   "name": "command-line-tickets",
   "version": "1.0.0",
   "description": "A command line tool to search for tickets and search in a human readable format",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,13 @@
   "bugs": {
     "url": "https://github.com/tagpro/zendesk-cla/issues"
   },
-  "homepage": "https://github.com/tagpro/zendesk-cla#readme"
+  "homepage": "https://github.com/tagpro/zendesk-cla#readme",
+  "devDependencies": {
+    "mocha": "^6.1.4"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "inquirer": "^6.3.1"
+  }
 }
