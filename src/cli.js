@@ -67,8 +67,7 @@ class cli {
     }
 
     async getSearchCriteria(entityChoice) {
-        let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES,
-            Entity = this.createEntity(entityChoice), choices;
+        let Entity = this.createEntity(entityChoice), choices;
         choices = Entity.getFields();
 
         // Handling promise errors
@@ -79,7 +78,7 @@ class cli {
                     name: 'fieldChoice',
                     choices: choices,
                     message: 'Select a field to search',
-                }
+                },
             ]);
             const choiceType = Entity.getFieldType(choice.fieldChoice);
             let inputOptions = getInputType(choiceType);
@@ -88,11 +87,9 @@ class cli {
                 name: 'searchValue',
                 ...inputOptions
             }
-            const value = await prompt([
-                {
-                    ...inputOptions
-                }
-            ]);
+            const value = await prompt([{...inputOptions}]);
+            // Get search result from logic
+            // Print onto console from logic/cli
             log.simple(chalk.bgCyan(`The value entered is ${value.searchValue}`))
         } catch (error) {
             log.error('Some error occured while generating search options', error);
