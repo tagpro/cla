@@ -32,7 +32,7 @@ async function run() {
                 stay = false
             }
         } catch (error) {
-            log.error('Failed Somewhere. Please try again!', error);
+            log.error('Failed while taking your input. Please try again', error);
         }
     }
 }

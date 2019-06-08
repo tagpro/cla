@@ -1,10 +1,17 @@
-class User {
+const { CONSTANTS } = require('./../utils');
+const Entity = require('./Entity');
+const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
+
+class User extends Entity {
+    constructor() {
+        super();
+    }
     /**
      * Returns all the fields in an array
      */
     static getFields() {
         return [
-            'id',
+            '_id',
             'url',
             'external_id',
             'name',
@@ -33,24 +40,25 @@ class User {
      */
     static getFieldType(field) {
         const types = {
-            url: 'string',
-            external_id: 'string',
-            name: 'string',
-            alias: 'string',
-            created_at: 'string',
-            active: 'boolean',
-            verified: 'boolean',
-            shared: 'boolean',
-            locale: 'string',
-            timezone: 'string',
-            last_login_at: 'string',
-            email: 'string',
-            phone: 'string',
-            signature: 'string',
-            organization_id: 'number',
-            tags: 'array',
-            suspended: 'boolean',
-            role: 'string',
+            _id: NUMBER,
+            url: STRING,
+            external_id: STRING,
+            name: STRING,
+            alias: STRING,
+            created_at: STRING,
+            active: BOOLEAN,
+            verified: BOOLEAN,
+            shared: BOOLEAN,
+            locale: STRING,
+            timezone: STRING,
+            last_login_at: STRING,
+            email: STRING,
+            phone: STRING,
+            signature: STRING,
+            organization_id: NUMBER,
+            tags: ARRAY,
+            suspended: BOOLEAN,
+            role: STRING,
         };
 
         return types[field];

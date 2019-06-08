@@ -15,7 +15,7 @@ let data = {
     },
 
     getEntities() {
-        return Entities
+        return Entities;
     }
 }
 

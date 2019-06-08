@@ -1,13 +1,10 @@
 // Map the commands to the logic/view
 const program = require('commander');
 const { prompt } = require('inquirer');
-
-const { dummy } = require('./logic');
+const chalk = require('chalk');
+const { getInputType } = require('./logic');
 const { log, CONSTANTS } = require('./utils');
 const { data } = require('./data');
-
-dummy();
-
 
 class cli {
     constructor() {
@@ -21,7 +18,7 @@ class cli {
         }
         program.parse(process.argv)
         this.program = program;
-        log.message('Setting up cli . . . complete');
+        log.success('Setting up cli . . . complete');
     }
     static entitySelection() {
         let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
@@ -36,7 +33,7 @@ class cli {
                     type: 'list',
                     name: 'entitySelection',
                     choices,
-                    message: 'Select the entity to search on'
+                    message: 'Select an entity to search'
                 }
             ]);
             return selection.entitySelection;
@@ -45,29 +42,58 @@ class cli {
         }
     }
 
-    async getSearchCriteria(entityChoice) {
-        let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
+    createEntity(entityChoice) {
+        let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES, Entity;
         try {
+            let { Organisation, User, Ticket } = data.getEntities();
             switch (entityChoice) {
                 case USERS: {
-                    let { User } = data.getEntities();
-                    const choice = await prompt([
-                        {
-                            type: 'list',
-                            name: 'userFieldChoice',
-                            choices: User.getFields(),
-                            message: 'Select the field to search on'
-                        }
-                    ]);
-                    log.message(`You chose the field - ${choice.userFieldChoice}`);
+                    Entity = User;
+                    break;
                 }
                 case TICKETS: {
-
+                    Entity = Ticket;
+                    break;
                 }
                 case ORGANISATIONS: {
-
+                    Entity = Organisation;
+                    break;
                 }
             }
+        } catch (error) {
+            log.error('Error while fetching option fields', error);
+        }
+        log.message(chalk.yellow(Entity.toString()), 'this is the entity type')
+        return Entity;
+    }
+
+    async getSearchCriteria(entityChoice) {
+        let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES,
+            Entity = this.createEntity(entityChoice), choices;
+        choices = Entity.getFields();
+
+        // Handling promise errors
+        try {
+            const choice = await prompt([
+                {
+                    type: 'list',
+                    name: 'fieldChoice',
+                    choices: choices,
+                    message: 'Select a field to search',
+                }
+            ]);
+            const choiceType = Entity.getFieldType(choice.fieldChoice);
+            const InputOptions = {
+                message: `Please enter the value for ${choice.fieldChoice}`,
+                name: 'searchValue',
+                ...choiceType
+            }
+            const value = await prompt([
+                {
+                    ...InputOptions
+                }
+            ]);
+            log.simple(chalk.bgCyan(`The value entered is ${value.searchValue}`))
         } catch (error) {
             log.error('Some error occured while generating search options', error);
         }

@@ -6,6 +6,12 @@ const CONSTANTS = {
         ORGANISATIONS: 'organisations',
         TICKETS: 'tickets',
     },
+    TYPES: {
+        NUMBER: 'number',
+        STRING: 'string',
+        BOOLEAN: 'boolean',
+        ARRAY: 'array',
+    },
 }
 
 const log = {
@@ -31,22 +37,19 @@ const log = {
         console.error(error);
     },
 
+    success(...message) {
+        console.log(chalk.green(...message));
+    },
     /**
      * Function to log everything to the console beautifully (Cyan color)
      * @param {string} message Print the message to the console
      */
-    message(message) {
-        if (Array.isArray(message)) {
-            for (let m of message) {
-                console.log(this.print(chalk.cyan, m))
-            }
-        } else {
-            console.log(this.print(chalk.cyan, message))
-        }
+    message(...message) {
+        console.log(chalk.cyan(...message));
     },
 
-    simple(message) {
-        console.log(message);
+    simple(...message) {
+        console.log(...message);
     },
 
     /**

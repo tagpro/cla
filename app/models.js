@@ -6,6 +6,8 @@ const { log, CONSTANTS } = require('./utils');
 
 // Import models
 const User = require('./models/User');
+const Ticket = require('./models/Ticket');
+const Organisation = require('./models/Organisation');
 // Setup all models
 let users = [], organisations = [], tickets = []
 try {
@@ -14,7 +16,7 @@ try {
     tickets = JSON.parse(fs.readFileSync('./data/tickets.json'));
 } catch (error) {
     // TODO: Update logging to use this
-    console.log(chalk.red('Error occured while loading data'), error);
+    log.simple(chalk.red('Error occured while loading data'), error);
 }
 
 // Define relationships?
@@ -25,5 +27,7 @@ module.exports = {
     tickets,
     Entities: {
         User,
-    }
+        Ticket,
+        Organisation,
+    },
 }
