@@ -63,7 +63,6 @@ class cli {
         } catch (error) {
             log.error('Error while fetching option fields', error);
         }
-        log.message(chalk.yellow(Entity.toString()), 'this is the entity type')
         return Entity;
     }
 
@@ -83,14 +82,15 @@ class cli {
                 }
             ]);
             const choiceType = Entity.getFieldType(choice.fieldChoice);
-            const InputOptions = {
-                message: `Please enter the value for ${choice.fieldChoice}`,
+            let inputOptions = getInputType(choiceType);
+            inputOptions = {
+                message: `Please enter ${choiceType} for ${choice.fieldChoice}`,
                 name: 'searchValue',
-                ...choiceType
+                ...inputOptions
             }
             const value = await prompt([
                 {
-                    ...InputOptions
+                    ...inputOptions
                 }
             ]);
             log.simple(chalk.bgCyan(`The value entered is ${value.searchValue}`))
