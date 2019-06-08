@@ -2,7 +2,7 @@
 const program = require('commander');
 const { prompt } = require('inquirer');
 const chalk = require('chalk');
-const { getInputType, search } = require('./logic');
+const { getInputType, search, display } = require('./logic');
 const { log, CONSTANTS } = require('./utils');
 const { data } = require('./data');
 
@@ -92,7 +92,7 @@ class cli {
             // Print onto console from logic/cli
             let result = search(entityChoice, choice.fieldChoice, value.searchValue);
             log.message('Found something');
-            log.simple(result);
+            display.log(result, entityChoice);
         } catch (error) {
             log.error('Some error occured while generating search options', error);
         }

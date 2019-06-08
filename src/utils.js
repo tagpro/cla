@@ -12,7 +12,7 @@ const CONSTANTS = {
         BOOLEAN: 'boolean',
         ARRAY: 'array',
     },
-}
+};
 
 const log = {
     /**
@@ -65,9 +65,9 @@ const log = {
             console.log(obj);
         }
     }
-}
+};
 
 module.exports = {
     log,
-    CONSTANTS
+    CONSTANTS,
 };

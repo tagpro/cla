@@ -1,15 +1,16 @@
-const { CONSTANTS } = require('../utils');
+const { CONSTANTS } = require('./../utils');
 const Entity = require('./Entity');
+
 const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
+const { ORGANISATIONS, TICKETS } = CONSTANTS.ENTITIES;
 
 class User extends Entity {
     constructor() {
         super();
+        // These fields are from a data source
     }
-    /**
-     * Returns all the fields in an array
-     */
-    static getFields() {
+
+    static get commonFields() {
         return [
             '_id',
             'url',
@@ -26,11 +27,34 @@ class User extends Entity {
             'email',
             'phone',
             'signature',
-            'organization_id',
             'tags',
             'suspended',
             'role',
         ];
+    }
+    /**
+     * Returns all the fields in an array
+     */
+    static getFields() {
+        return [
+            ...User.commonFields,
+            'organization_id',
+        ];
+    }
+
+    static get printKeys() {
+        return {
+            myKeys: [
+                ...User.commonFields
+            ],
+            associations: [{
+                objKey: 'organization_id',
+                entity: ORGANISATIONS
+            }, {
+                objKey: 'ticket_ids',
+                entity: TICKETS
+            }],
+        };
     }
 
     /**

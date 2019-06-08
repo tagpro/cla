@@ -1,11 +1,54 @@
-// TODO: use data.js instead
-const chalk = require('chalk');
-let { users, tickets, organisations } = require('./models');
-const { CONSTANTS } = require('./utils');
+const { CONSTANTS, log } = require('./utils');
 let { data } = require('./data');
 
-const { ARRAY, BOOLEAN, STRING, NUMBER } = CONSTANTS.TYPES;
-let getInputType = function (choiceType, entity) {
+const { BOOLEAN, NUMBER } = CONSTANTS.TYPES;
+const { User, Organisation, Ticket } = data.getEntities();
+class Display {
+    constructor() {
+        this.tabWidth = 15;
+    }
+
+    /**
+     * Print key and value in tabular fashion
+     *
+     * @param {string} key Key to print
+     * @param {string} val Value for the key
+     */
+    spaciousPrint(key, val) {
+        let spaces = this.tabWidth - key.length > 0? this.tabWidth - key.length : 0;
+        for (let i = 0; i < spaces; i++) {
+            key += ' ';
+        }
+        console.log (`${key} : ${val}`);
+    }
+    show(obj, keys) {
+
+    }
+
+    log(result, entity) {
+        const { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
+        let Entity;
+        switch (entity) {
+            case USERS:
+                Entity = User;
+                break;
+            case TICKETS:
+                break;
+        }
+        try {
+            for (let k of Entity.printKeys.myKeys) {
+                this.spaciousPrint(k,result[0][k]);
+            }
+        } catch (error) {
+            log.error('Error occured while printing the details', error);
+        }
+    }
+
+}
+
+let display = new Display();
+
+let getInputType = function (choiceType) {
     let options = {
         type: 'input'
     }
@@ -61,17 +104,17 @@ let simpleSearch = function (entity, field, value) {
 let testAdvancedSearch = function (entity, field) {
     const { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
     // Don't abstract this swtich case at data layer as this is a logical requirement
-    let entities, optimisedEntities;
+    let optimisedEntities;
     try {
         switch (entity) {
             case USERS:
-                [entities, optimisedEntities] = data.getUsers();
+                [, optimisedEntities] = data.getUsers();
                 break;
             case TICKETS:
-                [entities, optimisedEntities] = data.getTickets();
+                [, optimisedEntities] = data.getTickets();
                 break;
             case ORGANISATIONS:
-                [entities, optimisedEntities] = data.getOrganisations();
+                [, optimisedEntities] = data.getOrganisations();
                 break;
         }
     } catch (error) {
@@ -79,11 +122,9 @@ let testAdvancedSearch = function (entity, field) {
         // Not a big issue, we can still search using basic search
         return false;
     }
-
     if (optimisedEntities.hasOwnProperty === field) {
         return true;
     }
-
     return false;
 }
 
@@ -112,11 +153,7 @@ let search = function (entity, field, value) {
 }
 
 module.exports = {
-    dummy: function () {
-        console.log(`Users: ${chalk.cyan(users.length)}`);
-        console.log(`Tickets: ${chalk.cyan(tickets.length)}`);
-        console.log(`Organisations: ${chalk.cyan(organisations.length)}`);
-    },
     getInputType,
     search,
+    display,
 };
