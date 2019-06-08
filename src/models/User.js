@@ -1,4 +1,4 @@
-const { CONSTANTS } = require('./../utils');
+const { CONSTANTS } = require('../utils');
 const Entity = require('./Entity');
 const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 

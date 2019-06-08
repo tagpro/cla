@@ -2,7 +2,7 @@
 const program = require('commander');
 const { prompt } = require('inquirer');
 const chalk = require('chalk');
-const { getInputType } = require('./logic');
+const { getInputType, search } = require('./logic');
 const { log, CONSTANTS } = require('./utils');
 const { data } = require('./data');
 
@@ -80,17 +80,19 @@ class cli {
                     message: 'Select a field to search',
                 },
             ]);
-            const choiceType = Entity.getFieldType(choice.fieldChoice);
-            let inputOptions = getInputType(choiceType);
+            const fieldType = Entity.getFieldType(choice.fieldChoice);
+            let inputOptions = getInputType(fieldType);
             inputOptions = {
-                message: `Please enter ${choiceType} for ${choice.fieldChoice}`,
+                message: `Please enter ${fieldType} for ${choice.fieldChoice}`,
                 name: 'searchValue',
                 ...inputOptions
             }
             const value = await prompt([{...inputOptions}]);
             // Get search result from logic
             // Print onto console from logic/cli
-            log.simple(chalk.bgCyan(`The value entered is ${value.searchValue}`))
+            let result = search(entityChoice, choice.fieldChoice, value.searchValue);
+            log.message('Found something');
+            log.simple(result);
         } catch (error) {
             log.error('Some error occured while generating search options', error);
         }
