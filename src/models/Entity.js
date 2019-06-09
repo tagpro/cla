@@ -5,7 +5,7 @@ const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 
 class Entity {
     constructor () {
-        this.tabWidth = 15;
+        this.tabWidth = 18;
     }
 
     static getFields() {

@@ -138,7 +138,7 @@ class DataProcessor {
             let org = this.getOrganisation(newTicket.organization_id);
             if (org) {
                 org.addTicket(newTicket);
-                newTicket.organisation = org;
+                newTicket.updateOrganistaion(org);
             }
 
         }

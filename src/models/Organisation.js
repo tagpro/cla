@@ -1,6 +1,7 @@
 const Entity = require('./Entity');
 const { CONSTANTS } = require('./../utils');
 const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
+const chalk = require('chalk');
 
 module.exports = class Organisation extends Entity {
     constructor(organisation) {
@@ -85,5 +86,29 @@ module.exports = class Organisation extends Entity {
         for (let key of Organisation.getFields()) {
             this.spaciousPrint(key, this[key]);
         }
+
+        console.log();
+        console.group('*** Related Details ***');
+        console.log(chalk.bgWhite(chalk.black(`Number of submitted tickets - ${this.tickets.length}`)));
+        if (this.tickets.length > 0) {
+            for (let i in this.tickets) {
+                let ticket = this.tickets[i];
+                console.log(chalk.bgYellow(`== ${Number(i) + 1} ==`));
+                this.spaciousPrint('external_id', ticket.external_id);
+                this.spaciousPrint('subject', ticket.subject);
+            }
+        }
+
+        console.log();
+        console.log(chalk.bgWhite(chalk.black(`Number of assigned tickets - ${this.users.length}`)));
+        if (this.users.length > 0) {
+            for (let i in this.users) {
+                let user = this.users[i];
+                console.log(chalk.bgYellow(`== ${Number(i) + 1} ==`));
+                this.spaciousPrint('external_id', user.external_id);
+                this.spaciousPrint('name', user.name);
+            }
+        }
+        console.groupEnd();
     }
 };

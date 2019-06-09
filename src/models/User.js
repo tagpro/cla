@@ -1,5 +1,6 @@
 const { CONSTANTS } = require('./../utils');
 const Entity = require('./Entity');
+const chalk = require('chalk');
 
 const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 const { ORGANISATIONS, TICKETS } = CONSTANTS.ENTITIES;
@@ -132,6 +133,37 @@ class User extends Entity {
         for (let key of User.getFields()) {
             this.spaciousPrint(key, this[key]);
         }
+
+        console.log();
+        console.group('*** Related Details ***');
+        console.log(chalk.bgWhite(chalk.black(`Number of submitted tickets - ${this.submittedTickets.length}`)));
+        if (this.submittedTickets.length > 0) {
+            for (let i in this.submittedTickets) {
+                let ticket = this.submittedTickets[i];
+                console.log(chalk.bgYellow(`== ${Number(i) + 1} ==`));
+                this.spaciousPrint('external_id', ticket.external_id);
+                this.spaciousPrint('subject', ticket.subject);
+            }
+        }
+
+        console.log();
+        console.log(chalk.bgWhite(chalk.black(`Number of assigned tickets - ${this.assignedTickets.length}`)));
+        if (this.assignedTickets.length > 0) {
+            for (let i in this.assignedTickets) {
+                let ticket = this.assignedTickets[i];
+                console.log(chalk.bgYellow(`== ${Number(i) + 1} ==`));
+                this.spaciousPrint('external_id', ticket.external_id);
+                this.spaciousPrint('subject', ticket.subject);
+            }
+        }
+
+        console.log();
+        console.log(chalk.bgWhite(chalk.black(`Organistaion`)));
+        if (this.organistaion) {
+            this.spaciousPrint('external_id', this.organistaion.external_id);
+            this.spaciousPrint('name', this.organistaion.name);
+        }
+        console.groupEnd();
     }
 }
 

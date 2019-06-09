@@ -1,5 +1,6 @@
 const Entity = require('./Entity');
 const { CONSTANTS } = require('./../utils');
+const chalk = require('chalk');
 
 const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 
@@ -42,7 +43,7 @@ module.exports = class Ticket extends Entity {
         return this._organistaion;
     }
 
-    set organistaion(org) {
+    updateOrganistaion(org) {
         this._organistaion = org;
     }
 
@@ -114,5 +115,28 @@ module.exports = class Ticket extends Entity {
         for (let key of Ticket.getFields()) {
             this.spaciousPrint(key, this[key]);
         }
+
+        console.log();
+        console.group('*** Related Details ***');
+        console.log(chalk.bgWhite(chalk.black(`Submitter`)));
+        if (this.submitter) {
+            this.spaciousPrint('external_id', this.submitter.external_id);
+            this.spaciousPrint('name', this.submitter.name);
+        }
+
+        console.log();
+        console.log(chalk.bgWhite(chalk.black(`Assignee`)));
+        if (this.assignee) {
+            this.spaciousPrint('external_id', this.assignee.external_id);
+            this.spaciousPrint('name', this.assignee.name);
+        }
+
+        console.log();
+        console.log(chalk.bgWhite(chalk.black(`Organistaion`)));
+        if (this.organistaion) {
+            this.spaciousPrint('external_id', this.organistaion.external_id);
+            this.spaciousPrint('name', this.organistaion.name);
+        }
+        console.groupEnd();
     }
 };
