@@ -18,6 +18,10 @@ class User extends Entity {
         this._organistaion = null;
     }
 
+    get indexKeys() {
+        return ['_id', 'name', 'email'];
+    }
+
     static get commonFields() {
         return [
             '_id',

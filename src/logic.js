@@ -166,6 +166,7 @@ let search = function (entity, field, value) {
     }
     // Fall back to basic search if need be
     else {
+        log.message('Fetching search results . . .');
         result = simpleSearch(entity, field, value);
     }
     // Get associated data

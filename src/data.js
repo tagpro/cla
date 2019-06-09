@@ -60,7 +60,7 @@ class DataProcessor {
         // Optimising Users
         let newUsers = [];
         for (let user of users) {
-            newUsers.push(new User(user));
+            newUsers.push(this.optimise(user, User, USERS));
         }
         users = newUsers;
 
@@ -68,7 +68,7 @@ class DataProcessor {
         // Optimising Tickets
         let newTickets = [];
         for (let ticket of tickets) {
-            newTickets.push(new Ticket(ticket));
+            newTickets.push(this.optimise(ticket, Ticket, TICKETS));
         }
         tickets = newTickets;
     }

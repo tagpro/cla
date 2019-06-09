@@ -18,6 +18,10 @@ module.exports = class Ticket extends Entity {
         this._organistaion = null;
     }
 
+    get indexKeys() {
+        return ['_id', 'external_id', 'organization_id'];
+    }
+
     // Standard fields
     static get commonFields() {
         return [
