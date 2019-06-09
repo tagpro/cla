@@ -13,6 +13,7 @@ class cli {
             .description('This tool will help you find user tickets.');
 
         // TODO: Add help options
+        // Yes/No is Y/n. yes is the default answer
         this.program = program;
         log.success('Setting up cli . . . complete');
     }
@@ -84,14 +85,14 @@ class cli {
                 ...inputOptions
             };
             let value = await prompt([{...inputOptions}]);
-            if (!value) {
+            if (!value.searchValue) {
                 value = null;
             } else {
-                value = normalize(value, fieldType);
+                value = normalize(value.searchValue, fieldType);
             }
             // Get search result from logic
             // Print onto console from logic/cli
-            let result = search(entityChoice, choice.fieldChoice, value.searchValue);
+            let result = search(entityChoice, choice.fieldChoice, value);
             log.message('Found something');
             display.log(result, entityChoice);
         } catch (error) {

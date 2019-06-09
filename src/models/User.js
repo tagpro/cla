@@ -93,6 +93,10 @@ class User extends Entity {
 
         return types[field];
     }
+
+    toString() {
+        return `User ${this._id}. Name: ${this.name}`;
+    }
 }
 
 module.exports = User;

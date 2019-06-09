@@ -62,6 +62,6 @@ module.exports = class Organisation extends Entity {
     }
 
     toString() {
-        console.log('Organisation Object');
+        return `Organistaion ${this._id}. Name: ${this.name}`;
     }
 };

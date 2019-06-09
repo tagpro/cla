@@ -68,24 +68,18 @@ const log = {
 };
 
 let normalize = function (val, type) {
-    let finalVal;
     const { NUMBER, STRING, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
     switch (type) {
         case NUMBER:
-            finalVal = Number(val);
-            break;
+            return Number(val);
         case STRING:
-            finalVal = String(val);
-            break;
-        case BOOLEAN:
-            finalVal = BOOLEAN(val);
-            break;
+        // A string would be inside the array. Search criteria is a string
         case ARRAY:
-            // A string would be inside the array.
-            finalVal = String(val);
+            return String(val);
+        case BOOLEAN:
+            return Boolean(val);
     }
-
-    return finalVal;
+    return val;
 };
 
 module.exports = {

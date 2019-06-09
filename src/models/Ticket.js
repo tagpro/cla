@@ -83,6 +83,6 @@ module.exports = class Ticket extends Entity {
 
 
     toString() {
-        console.log('Ticket Object');
+        return `Ticket ${this._id}. Subject: ${this.subject}`;
     }
 };
