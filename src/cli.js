@@ -93,7 +93,6 @@ class cli {
             // Get search result from logic
             // Print onto console from logic/cli
             let result = search(entityChoice, choice.fieldChoice, value);
-            log.message('Found something');
             display.log(result, entityChoice);
         } catch (error) {
             log.error('Some error occured while generating search options', error);

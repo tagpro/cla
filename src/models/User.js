@@ -128,8 +128,10 @@ class User extends Entity {
         return types[field];
     }
 
-    toString() {
-        return `User ${this._id}. Name: ${this.name}`;
+    log() {
+        for (let key of User.getFields()) {
+            this.spaciousPrint(key, this[key]);
+        }
     }
 }
 

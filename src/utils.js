@@ -38,7 +38,7 @@ const log = {
     },
 
     success(...message) {
-        console.log(chalk.green(...message));
+        console.log(chalk.bgGreen(...message));
     },
     /**
      * Function to log everything to the console beautifully (Cyan color)

@@ -5,6 +5,7 @@ const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 
 class Entity {
     constructor () {
+        this.tabWidth = 15;
     }
 
     static getFields() {
@@ -17,6 +18,14 @@ class Entity {
 
     static get printKeys () {
         throw new Error('printKeys if not implemented. Need this to print');
+    }
+
+    spaciousPrint(key, val) {
+        let spaces = this.tabWidth - key.length > 0 ? this.tabWidth - key.length : 0;
+        for (let i = 0; i < spaces; i++) {
+            key += ' ';
+        }
+        console.log(`${key} : ${(String(val))}`);
     }
 
     normalize(field, value, type) {

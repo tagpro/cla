@@ -110,7 +110,9 @@ module.exports = class Ticket extends Entity {
     }
 
 
-    toString() {
-        return `Ticket ${this._id}. Subject: ${this.subject}`;
+    log() {
+        for (let key of Ticket.getFields()) {
+            this.spaciousPrint(key, this[key]);
+        }
     }
 };

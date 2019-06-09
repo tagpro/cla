@@ -15,44 +15,24 @@ class Display {
      * @param {string} key Key to print
      * @param {string} val Value for the key
      */
-    spaciousPrint(key, val) {
-        let spaces = this.tabWidth - key.length > 0 ? this.tabWidth - key.length : 0;
-        for (let i = 0; i < spaces; i++) {
-            key += ' ';
-        }
-        console.log(`${key} : ${(String(val))}`);
-        console.log();
-    }
 
-    log(result, entity) {
-        const { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
-        let Entity;
-        // TODO: Move this to utils
-        switch (entity) {
-            case USERS:
-                Entity = User;
-                break;
-            case TICKETS:
-                Entity = Ticket;
-                break;
-            case ORGANISATIONS:
-                Entity = Organisation;
-                break;
-        }
+    log(results) {
         try {
-            for (let i in result) {
-                let res = result[i];
-                console.log(`--- ${Number(i) + 1} ---`);
-                console.log(res.toString());
-                // for (let k of Entity.printKeys.myKeys) {
-                //     this.spaciousPrint(k, res[k]);
-                // }
+            if (results.length == 0) {
+                log.message('No results found');
+            } else {
+                log.success(`Found ${results.length} result${results.length > 1? 's': ''}`);
+            }
+            console.log();
+            for (let i in results) {
+                let res = results[i];
+                log.simple(chalk.bgMagenta(`--- ${Number(i) + 1} ---`));
+                res.log();
             }
         } catch (error) {
             log.error('Error occured while printing the details', error);
         }
     }
-
 }
 
 let display = new Display();

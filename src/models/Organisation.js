@@ -81,7 +81,9 @@ module.exports = class Organisation extends Entity {
         };
     }
 
-    toString() {
-        return `Organistaion ${this._id}. Name: ${this.name}`;
+    log() {
+        for (let key of Organisation.getFields()) {
+            this.spaciousPrint(key, this[key]);
+        }
     }
 };

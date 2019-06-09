@@ -106,10 +106,6 @@ class DataProcessor {
             // Add user to organisation using _id as a unique identifier
             let org = this.getOrganisation(newUser.organization_id);
             if (org) {
-                if (newUser._id == 2) {
-                    console.log(org);
-                    console.log(newUser);
-                }
                 org.addUser(newUser);
                 newUser.updateOrganistaion(org);
             }
@@ -146,7 +142,6 @@ class DataProcessor {
 
         }
         tickets = newTickets;
-        console.log(this.mutateData)
     }
 }
 
