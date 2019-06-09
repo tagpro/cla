@@ -32,3 +32,4 @@ This is a node application and is build on v12. Should be compatible with v10 (N
 8. Try to manage type instead of using ===. But, use of === is also fine if need be.
 
 ### Tradeoff
+1. Performance is a tradoff as we are not managing data using a database. Database can make search easier, indexing and managing relationships easier.

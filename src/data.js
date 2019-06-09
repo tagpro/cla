@@ -143,7 +143,6 @@ class DataProcessor {
 
         }
         tickets = newTickets;
-        console.log(this.mutateData);
     }
 }
 
