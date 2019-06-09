@@ -17,7 +17,23 @@ module.exports = class Organisation extends Entity {
     }
 
     get indexKeys () {
-        return ['_id', 'name'];
+        return ['_id', 'external_id', 'name'];
+    }
+
+    get users() {
+        return this._users;
+    }
+
+    addUser(user) {
+        this._users.push(user);
+    }
+
+    get tickets() {
+        return this._tickets;
+    }
+
+    addTicket(ticket) {
+        this._tickets.push(ticket);
     }
 
     static get commonFields() {

@@ -14,12 +14,37 @@ class User extends Entity {
             let val = this.normalize(field, user[field], User.getFieldType(field));
             this[field] = val;
         }
-        this._tickets = [];
+        this._submittedTickets = [];
+        this._assignedTickets = [];
         this._organistaion = null;
     }
 
     get indexKeys() {
-        return ['_id', 'name', 'email'];
+        return ['_id', 'external_id', 'name', 'email'];
+    }
+
+    get organistaion() {
+        return this._organistaion;
+    }
+
+    updateOrganistaion(org) {
+        this._organistaion = org;
+    }
+
+    get submittedTickets() {
+        return this._submittedTickets;
+    }
+
+    get assignedTickets() {
+        return this._assignedTickets;
+    }
+
+    addTicket(ticket, submitter = false) {
+        if (submitter) {
+            this._submittedTickets.push(ticket);
+        } else {
+            this._assignedTickets.push(ticket);
+        }
     }
 
     static get commonFields() {
@@ -44,13 +69,18 @@ class User extends Entity {
             'role',
         ];
     }
+
+    static get relatedFields() {
+        return ['organization_id'];
+    }
+
     /**
      * Returns all the fields in an array
      */
     static getFields() {
         return [
             ...User.commonFields,
-            'organization_id',
+            ...this.relatedFields,
         ];
     }
 

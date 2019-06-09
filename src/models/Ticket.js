@@ -14,12 +14,36 @@ module.exports = class Ticket extends Entity {
             this[field] = val;
         }
         this._submitter = null;
-        this._asignee = null;
+        this._assignee = null;
         this._organistaion = null;
     }
 
     get indexKeys() {
         return ['_id', 'external_id', 'organization_id'];
+    }
+
+    get submitter() {
+        return this._submitter;
+    }
+
+    set submitter(user) {
+        this._submitter = user;
+    }
+
+    get assignee() {
+        return this._assignee;
+    }
+
+    set assignee(user) {
+        this._assignee = user;
+    }
+
+    get organistaion() {
+        return this._organistaion;
+    }
+
+    set organistaion(org) {
+        this._organistaion = org;
     }
 
     // Standard fields
