@@ -2,6 +2,7 @@
 // TODO: Manage data asynchronously - Web workers?
 let { users, tickets, organisations, Entities } = require('./models');
 let { User, Organisation, Ticket } = Entities;
+let {CONSTANTS: {ENTITIES: {USERS, TICKETS, ORGANISATIONS}}} = require('./utils');
 
 // Set data
 // TODO: Hash on tags in users, map up organisation_id, tickets
@@ -10,9 +11,9 @@ let { User, Organisation, Ticket } = Entities;
 class DataProcessor {
     constructor() {
         this.mutateData = {
-            users: {},
-            tickets: {},
-            organisations: {},
+            [USERS]: {},
+            [TICKETS]: {},
+            [ORGANISATIONS]: {},
         };
     }
 
@@ -27,31 +28,49 @@ class DataProcessor {
     get organisations() {
         return this.mutateData.organisations;
     }
-
+    optimise(obj, Entity, entityKey) {
+        let newEntity = new Entity(obj);
+        // Index other keys
+        try {
+            for (let key of newEntity.indexKeys) {
+                if (!this.mutateData[entityKey].hasOwnProperty(key)) {
+                    this.mutateData[entityKey][key] = {};
+                }
+                if (!this.mutateData[entityKey][key].hasOwnProperty(newEntity[key])) {
+                    this.mutateData[entityKey][key][newEntity[key]] = [newEntity];
+                } else {
+                    this.mutateData[entityKey][key][newEntity[key]].push(newEntity);
+                }
+            }
+        } catch (error) {
+            log.error(`Failed to optimize ${entityKey}`, error);
+        }
+        return newEntity;
+    }
     // Asynchronously pre process data and update entities
     mutate() {
         // Update relationships here
         // Optimising Organisations
-        let new_orgs = []
+        let newOrgs = [];
         for (let org of organisations) {
-            new_orgs.push(new Organisation(org));
+            newOrgs.push(this.optimise(org, Organisation, ORGANISATIONS));
         }
-        organisations = new_orgs;
+        organisations = newOrgs;
 
-        // Optimising Organisations
-        let new_users = [];
+        // Optimising Users
+        let newUsers = [];
         for (let user of users) {
-            new_users.push(new User(user));
+            newUsers.push(new User(user));
         }
-        users = new_users;
+        users = newUsers;
 
 
-        // Optimising Organisations
-        let new_tickets = [];
+        // Optimising Tickets
+        let newTickets = [];
         for (let ticket of tickets) {
-            new_tickets.push(new Ticket(ticket));
+            newTickets.push(new Ticket(ticket));
         }
-        tickets = new_tickets;
+        tickets = newTickets;
     }
 }
 

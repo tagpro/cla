@@ -16,6 +16,10 @@ module.exports = class Organisation extends Entity {
         this._users = [];
     }
 
+    get indexKeys () {
+        return ['_id', 'name'];
+    }
+
     static get commonFields() {
         return [
             '_id',

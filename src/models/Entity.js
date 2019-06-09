@@ -31,6 +31,10 @@ class Entity {
 
         }
     }
+
+    get indexKeys () {
+        throw new Error('indexKeys is not defined. Cannot index this object');
+    }
 }
 
 module.exports = Entity;

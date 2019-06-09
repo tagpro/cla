@@ -43,9 +43,10 @@ class Display {
             for (let i in result) {
                 let res = result[i];
                 console.log(`--- ${Number(i) + 1} ---`);
-                for (let k of Entity.printKeys.myKeys) {
-                    this.spaciousPrint(k, res[k]);
-                }
+                console.log(res.toString());
+                // for (let k of Entity.printKeys.myKeys) {
+                //     this.spaciousPrint(k, res[k]);
+                // }
             }
         } catch (error) {
             log.error('Error occured while printing the details', error);
@@ -103,7 +104,7 @@ let simpleSearch = function (entity, field, value) {
                 return true;
             }
             if (e.hasOwnProperty(field)) {
-                if (type == ARRAY && value in e[field]) {
+                if (type == ARRAY && e[field].indexOf(value) > 0) {
                     return true;
                 } else if (e[field] == value) {
                     return true;
@@ -121,7 +122,7 @@ let simpleSearch = function (entity, field, value) {
 };
 
 // Advanced key based search (primary search - use map from data.js)
-let testAdvancedSearch = function (entity, field) {
+let testAdvancedSearch = function (entity, field, value) {
     const { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
     // Don't abstract this swtich case at data layer as this is a logical requirement
     let optimisedEntities;
@@ -142,8 +143,9 @@ let testAdvancedSearch = function (entity, field) {
         // Not a big issue, we can still search using basic search
         return false;
     }
-    if (optimisedEntities.hasOwnProperty === field) {
-        return true;
+    if (optimisedEntities.hasOwnProperty(field)) {
+        let val = optimisedEntities[field][value];
+        return val == undefined ? [] : val;
     }
     return false;
 };
@@ -155,12 +157,12 @@ let advancedSearch = function () {
 // Prepare search
 let search = function (entity, field, value) {
     // Find out if we can search the field on an entity using advanced mode
-    let isSearchable = testAdvancedSearch(entity, field);
+    let isSearchable = testAdvancedSearch(entity, field, value);
     let result = [];
 
     // Do advanced search if possible
     if (isSearchable) {
-        result = advancedSearch(entity, field, value);
+        result = isSearchable;
     }
     // Fall back to basic search if need be
     else {
