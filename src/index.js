@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const { commandInterace } = require("./cli");
 const { prompt } = require('inquirer');
 const { log } = require('./utils');

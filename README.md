@@ -1,4 +1,5 @@
 # cli
+A command line tool for a coding challenge.
 
 ## Requirements
 This is a node application and is build on v12. Should be compatible with v10 (NOT TESTED).
@@ -7,10 +8,13 @@ This is a node application and is build on v12. Should be compatible with v10 (N
 
 
 ## Using the tool
+1. This command line tool is an interactive session based tool. You will be asked few questions to generate a search query. Once the tool has all the parameters, it will show you the result. Once the result is shown, you can either continue to use the tool with new parameters or quit.
 
-### Using node
-
-node . r {Your name}
+## Setting up
+1. Make sure you have installed node.
+2. From the root folder of cla, run `chmod +x ./src/index.js`.
+3. Run the command line tool - `./src/index.js`.
+4. If you have issues, you can run the tool using node - `node ./src/index.js`.
 
 ## Assumptions
 1. Operator understands how to use command line. He/She also knows about what are all the various options represent.
