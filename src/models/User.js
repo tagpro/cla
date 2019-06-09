@@ -5,9 +5,17 @@ const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 const { ORGANISATIONS, TICKETS } = CONSTANTS.ENTITIES;
 
 class User extends Entity {
-    constructor() {
+    constructor(user) {
         super();
         // These fields are from a data source
+        let fields = User.getFields();
+        // Setting up all fields
+        for (let field of fields) {
+            let val = user[field] ? user[field] : '';
+            this[field] = val;
+        }
+        this._tickets = [];
+        this._organistaion = null;
     }
 
     static get commonFields() {

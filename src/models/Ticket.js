@@ -4,9 +4,20 @@ const { CONSTANTS } = require('./../utils');
 const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 
 module.exports = class Ticket extends Entity {
-    constructor() {
+    constructor(ticket) {
         super();
+        // These fields are from a data source
+        let fields = Ticket.getFields();
+        // Setting up all fields
+        for (let field of fields) {
+            let val = ticket[field] ? ticket[field] : '';
+            this[field] = val;
+        }
+        this._submitter = null;
+        this._asignee = null;
+        this._organistaion = null;
     }
+
     // Standard fields
     static get commonFields() {
         return [

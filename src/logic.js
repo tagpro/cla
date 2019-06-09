@@ -1,5 +1,6 @@
 const { CONSTANTS, log } = require('./utils');
 let { data } = require('./data');
+const chalk = require('chalk');
 
 const { BOOLEAN, NUMBER } = CONSTANTS.TYPES;
 const { User, Organisation, Ticket } = data.getEntities();
@@ -19,10 +20,8 @@ class Display {
         for (let i = 0; i < spaces; i++) {
             key += ' ';
         }
-        console.log (`${key} : ${val}`);
-    }
-    show(obj, keys) {
-
+        console.log (chalk.inverse(`${key} : ${(val)}`));
+        console.log();
     }
 
     log(result, entity) {
@@ -41,8 +40,12 @@ class Display {
                 break;
         }
         try {
-            for (let k of Entity.printKeys.myKeys) {
-                this.spaciousPrint(k,result[0][k]);
+            for (let i in result) {
+                let res = result[i];
+                console.log(`--- ${Number(i) + 1} ---`);
+                for (let k of Entity.printKeys.myKeys) {
+                    this.spaciousPrint(k,res[k]);
+                }
             }
         } catch (error) {
             log.error('Error occured while printing the details', error);
@@ -92,7 +95,7 @@ let simpleSearch = function (entity, field, value) {
     try {
         result = entities.filter((e) => {
             if (e.hasOwnProperty(field) && e[field] == value) {
-                return true
+                return true;
             }
             return false;
         });
@@ -103,7 +106,7 @@ let simpleSearch = function (entity, field, value) {
     }
     return result;
 
-}
+};
 
 // Advanced key based search (primary search - use map from data.js)
 let testAdvancedSearch = function (entity, field) {
@@ -123,7 +126,7 @@ let testAdvancedSearch = function (entity, field) {
                 break;
         }
     } catch (error) {
-        log.error('Unexpected Error Occured while searching. Falling back to basic search technique . . .', error)
+        log.error('Unexpected Error Occured while searching. Falling back to basic search technique . . .', error);
         // Not a big issue, we can still search using basic search
         return false;
     }
@@ -131,11 +134,11 @@ let testAdvancedSearch = function (entity, field) {
         return true;
     }
     return false;
-}
+};
 
 let advancedSearch = function () {
 
-}
+};
 
 // Prepare search
 let search = function (entity, field, value) {
@@ -149,13 +152,13 @@ let search = function (entity, field, value) {
     }
     // Fall back to basic search if need be
     else {
-        result = simpleSearch(entity, field, value)
+        result = simpleSearch(entity, field, value);
     }
     // Get associated data
 
     // Return the resulting array
     return result;
-}
+};
 
 module.exports = {
     getInputType,

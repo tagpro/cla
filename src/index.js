@@ -1,14 +1,15 @@
 const { commandInterace } = require("./cli");
 const { prompt } = require('inquirer');
 const { log } = require('./utils');
+const { preProcessor } = require('./data');
 // Bootstrapping goes here
 // import libraries
 
 // Set up the data
+preProcessor.mutate();
 
 // Set up cli
 let cli = new commandInterace();
-
 
 /**
  * This is where the main loop exists.

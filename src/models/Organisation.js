@@ -3,8 +3,17 @@ const { CONSTANTS } = require('./../utils');
 const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
 
 module.exports = class Organisation extends Entity {
-    constructor() {
+    constructor(organisation) {
         super();
+        // These fields are from a data source
+        let fields = Organisation.getFields();
+        // Setting up all fields
+        for (let field of fields) {
+            let val = organisation[field] ? organisation[field] : '';
+            this[field] = val;
+        }
+        this._tickets = [];
+        this._users = [];
     }
 
     static get commonFields() {
@@ -55,4 +64,4 @@ module.exports = class Organisation extends Entity {
     toString() {
         console.log('Organisation Object');
     }
-}
+};

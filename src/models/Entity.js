@@ -1,8 +1,7 @@
 class Entity {
     constructor () {
-        this.getFields = this.getFields.bind(this);
-        this.getFieldType = this.getFieldType.bind(this);
     }
+
     static getFields() {
         throw new Error('getFields if not implemented');
     }
