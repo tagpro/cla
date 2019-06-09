@@ -1,4 +1,4 @@
-const { CONSTANTS, log } = require('./utils');
+const { CONSTANTS, log, isEmpty } = require('./utils');
 let { data } = require('./data');
 const chalk = require('chalk');
 
@@ -80,7 +80,7 @@ let simpleSearch = function (entity, field, value) {
         results = entities.filter((e) => {
             let type = Entity.getFieldType(field);
             // Match null criteria
-            if (value == null && (e[field] == '' || e[field] == null || e[field] == undefined || e[field] == [])) {
+            if (value == null && (isEmpty(e[field]))) {
                 return true;
             }
             if (e.hasOwnProperty(field)) {

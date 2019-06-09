@@ -2,7 +2,7 @@
 // TODO: Manage data asynchronously - Web workers?
 let { users, tickets, organisations, Entities } = require('./models');
 let { User, Organisation, Ticket } = Entities;
-let { CONSTANTS: { ENTITIES: { USERS, TICKETS, ORGANISATIONS } } } = require('./utils');
+let { CONSTANTS: { ENTITIES: { USERS, TICKETS, ORGANISATIONS } }, isEmpty } = require('./utils');
 
 // Set data
 // TODO: Hash on tags in users, map up organisation_id, tickets
@@ -74,13 +74,14 @@ class DataProcessor {
         try {
             // TODO: Take care of non existent keys : Add null
             for (let key of newEntity.indexKeys) {
+                let normalizedKey = isEmpty(newEntity[key]) ? null : newEntity[key];
                 if (!this.mutateData[entityKey].hasOwnProperty(key)) {
                     this.mutateData[entityKey][key] = {};
                 }
-                if (!this.mutateData[entityKey][key].hasOwnProperty(newEntity[key])) {
-                    this.mutateData[entityKey][key][newEntity[key]] = [newEntity];
+                if (!this.mutateData[entityKey][key].hasOwnProperty(normalizedKey)) {
+                    this.mutateData[entityKey][key][normalizedKey] = [newEntity];
                 } else {
-                    this.mutateData[entityKey][key][newEntity[key]].push(newEntity);
+                    this.mutateData[entityKey][key][normalizedKey].push(newEntity);
                 }
             }
         } catch (error) {
@@ -142,6 +143,7 @@ class DataProcessor {
 
         }
         tickets = newTickets;
+        console.log(this.mutateData);
     }
 }
 

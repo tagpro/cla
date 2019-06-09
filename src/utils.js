@@ -59,12 +59,16 @@ const log = {
      */
     table(obj) {
         if (console.hasOwnProperty('table')) {
-            console.table(obj)
+            console.table(obj);
         } else {
             // Should work well if obj has toString
             console.log(obj);
         }
     }
+};
+
+let isEmpty = function (val) {
+    return val == '' || val == null || val == undefined || val == [];
 };
 
 let normalize = function (val, type) {
@@ -86,4 +90,5 @@ module.exports = {
     log,
     CONSTANTS,
     normalize,
+    isEmpty,
 };
