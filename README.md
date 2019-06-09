@@ -21,3 +21,5 @@ node . r {Your name}
 3. Constants are CAPITALISED
 4. Add trailing comma on objects spanning multiple lines
 5. Use single try..catch around a group of async/await calls unless it is necessary not to.
+
+### Tradeoff

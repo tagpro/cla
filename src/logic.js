@@ -28,11 +28,16 @@ class Display {
     log(result, entity) {
         const { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
         let Entity;
+        // TODO: Move this to utils
         switch (entity) {
             case USERS:
                 Entity = User;
                 break;
             case TICKETS:
+                Entity = Ticket;
+                break;
+            case ORGANISATIONS:
+                Entity = Organisation;
                 break;
         }
         try {
@@ -51,7 +56,7 @@ let display = new Display();
 let getInputType = function (choiceType) {
     let options = {
         type: 'input'
-    }
+    };
     switch (choiceType) {
         case NUMBER: {
             options.type = 'number';
@@ -64,7 +69,7 @@ let getInputType = function (choiceType) {
         }
     }
     return options;
-}
+};
 
 // Linear secondary search
 

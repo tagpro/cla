@@ -12,11 +12,7 @@ class cli {
             .version('1.0.0')
             .description('This tool will help you find user tickets.');
 
-        if (!process.argv.slice(2).length || !/[arudl]/.test(process.argv.slice(2))) {
-            program.outputHelp();
-            process.exit();
-        }
-        program.parse(process.argv)
+        // TODO: Add help options
         this.program = program;
         log.success('Setting up cli . . . complete');
     }
@@ -86,7 +82,7 @@ class cli {
                 message: `Please enter ${fieldType} for ${choice.fieldChoice}`,
                 name: 'searchValue',
                 ...inputOptions
-            }
+            };
             const value = await prompt([{...inputOptions}]);
             // Get search result from logic
             // Print onto console from logic/cli
@@ -101,4 +97,4 @@ class cli {
 
 module.exports = {
     commandInterace: cli
-}
+};

@@ -44,9 +44,7 @@ class User extends Entity {
 
     static get printKeys() {
         return {
-            myKeys: [
-                ...User.commonFields
-            ],
+            myKeys: User.commonFields,
             associations: [{
                 objKey: 'organization_id',
                 entity: ORGANISATIONS

@@ -12,19 +12,19 @@ class DataProcessor {
             users: {},
             tickets: {},
             organisations: {},
-        }
+        };
     }
 
     get users() {
-        return this.mutateData.users
+        return this.mutateData.users;
     }
 
     get tickets() {
-        return this.mutateData.tickets
+        return this.mutateData.tickets;
     }
 
     get organisations() {
-        return this.mutateData.users
+        return this.mutateData.organisations;
     }
 
     // Asynchronously pre process data and update entities

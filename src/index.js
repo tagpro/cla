@@ -15,7 +15,7 @@ let cli = new commandInterace();
  * The application will be running until the user decides to quit.
  */
 async function run() {
-    let stay = true
+    let stay = true;
 
     while (stay) {
         try {
@@ -29,7 +29,7 @@ async function run() {
                 }
             ]);
             if (!answer.confirmationExit) {
-                stay = false
+                stay = false;
             }
         } catch (error) {
             log.error('Failed while taking your input. Please try again', error);
