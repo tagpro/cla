@@ -9,7 +9,7 @@ module.exports = class Organisation extends Entity {
         let fields = Organisation.getFields();
         // Setting up all fields
         for (let field of fields) {
-            let val = organisation[field] ? organisation[field] : '';
+            let val = this.normalize(field, organisation[field], Organisation.getFieldType(field));
             this[field] = val;
         }
         this._tickets = [];

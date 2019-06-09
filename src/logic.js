@@ -2,7 +2,7 @@ const { CONSTANTS, log } = require('./utils');
 let { data } = require('./data');
 const chalk = require('chalk');
 
-const { BOOLEAN, NUMBER } = CONSTANTS.TYPES;
+const { BOOLEAN, NUMBER, ARRAY } = CONSTANTS.TYPES;
 const { User, Organisation, Ticket } = data.getEntities();
 class Display {
     constructor() {
@@ -16,11 +16,11 @@ class Display {
      * @param {string} val Value for the key
      */
     spaciousPrint(key, val) {
-        let spaces = this.tabWidth - key.length > 0? this.tabWidth - key.length : 0;
+        let spaces = this.tabWidth - key.length > 0 ? this.tabWidth - key.length : 0;
         for (let i = 0; i < spaces; i++) {
             key += ' ';
         }
-        console.log (chalk.inverse(`${key} : ${(val)}`));
+        console.log(`${key} : ${(String(val))}`);
         console.log();
     }
 
@@ -44,7 +44,7 @@ class Display {
                 let res = result[i];
                 console.log(`--- ${Number(i) + 1} ---`);
                 for (let k of Entity.printKeys.myKeys) {
-                    this.spaciousPrint(k,res[k]);
+                    this.spaciousPrint(k, res[k]);
                 }
             }
         } catch (error) {
@@ -77,25 +77,37 @@ let getInputType = function (choiceType) {
 // Linear secondary search
 
 let simpleSearch = function (entity, field, value) {
-    let result = [], entities;
+    let results = [], entities, Entity;
     const { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
 
     switch (entity) {
         case USERS:
             entities = data.getUsers(true);
+            Entity = User;
             break;
         case TICKETS:
             entities = data.getTickets(true);
+            Entity = Ticket;
             break;
         case ORGANISATIONS:
             entities = data.getOrganisations(true);
+            Entity = Organisation;
             break;
     }
 
     try {
-        result = entities.filter((e) => {
-            if (e.hasOwnProperty(field) && e[field] == value) {
+        results = entities.filter((e) => {
+            let type = Entity.getFieldType(field);
+            // Match null criteria
+            if (value == null && (e[field] == '' || e[field] == null || e[field] == undefined || e[field] == [])) {
                 return true;
+            }
+            if (e.hasOwnProperty(field)) {
+                if (type == ARRAY && value in e[field]) {
+                    return true;
+                } else if (e[field] == value) {
+                    return true;
+                }
             }
             return false;
         });
@@ -104,7 +116,7 @@ let simpleSearch = function (entity, field, value) {
             `${field} with value ${value} under ${entity}`, error);
         // return [];
     }
-    return result;
+    return results;
 
 };
 

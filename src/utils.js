@@ -67,7 +67,29 @@ const log = {
     }
 };
 
+let normalize = function (val, type) {
+    let finalVal;
+    const { NUMBER, STRING, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
+    switch (type) {
+        case NUMBER:
+            finalVal = Number(val);
+            break;
+        case STRING:
+            finalVal = String(val);
+            break;
+        case BOOLEAN:
+            finalVal = BOOLEAN(val);
+            break;
+        case ARRAY:
+            // A string would be inside the array.
+            finalVal = String(val);
+    }
+
+    return finalVal;
+};
+
 module.exports = {
     log,
     CONSTANTS,
+    normalize,
 };

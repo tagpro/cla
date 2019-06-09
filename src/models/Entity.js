@@ -1,3 +1,8 @@
+
+const { CONSTANTS } = require('./../utils');
+
+const { STRING, NUMBER, BOOLEAN, ARRAY } = CONSTANTS.TYPES;
+
 class Entity {
     constructor () {
     }
@@ -12,6 +17,19 @@ class Entity {
 
     static get printKeys () {
         throw new Error('printKeys if not implemented. Need this to print');
+    }
+
+    normalize(field, value, type) {
+        let isDefined = value != undefined;
+        switch(type) {
+            case STRING:
+            case NUMBER:
+            case BOOLEAN:
+                return isDefined ? value : '';
+            case ARRAY:
+                return isDefined ? value: [];
+
+        }
     }
 }
 

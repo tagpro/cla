@@ -11,7 +11,7 @@ class User extends Entity {
         let fields = User.getFields();
         // Setting up all fields
         for (let field of fields) {
-            let val = user[field] ? user[field] : '';
+            let val = this.normalize(field, user[field], User.getFieldType(field));
             this[field] = val;
         }
         this._tickets = [];

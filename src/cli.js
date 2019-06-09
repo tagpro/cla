@@ -3,7 +3,7 @@ const program = require('commander');
 const { prompt } = require('inquirer');
 const chalk = require('chalk');
 const { getInputType, search, display } = require('./logic');
-const { log, CONSTANTS } = require('./utils');
+const { log, CONSTANTS, normalize } = require('./utils');
 const { data } = require('./data');
 
 class cli {
@@ -79,11 +79,16 @@ class cli {
             const fieldType = Entity.getFieldType(choice.fieldChoice);
             let inputOptions = getInputType(fieldType);
             inputOptions = {
-                message: `Please enter ${fieldType} for ${choice.fieldChoice}`,
+                message: `Please enter value for ${choice.fieldChoice}`,
                 name: 'searchValue',
                 ...inputOptions
             };
-            const value = await prompt([{...inputOptions}]);
+            let value = await prompt([{...inputOptions}]);
+            if (!value) {
+                value = null;
+            } else {
+                value = normalize(value, fieldType);
+            }
             // Get search result from logic
             // Print onto console from logic/cli
             let result = search(entityChoice, choice.fieldChoice, value.searchValue);

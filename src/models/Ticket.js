@@ -10,7 +10,7 @@ module.exports = class Ticket extends Entity {
         let fields = Ticket.getFields();
         // Setting up all fields
         for (let field of fields) {
-            let val = ticket[field] ? ticket[field] : '';
+            let val = this.normalize(field, ticket[field], Ticket.getFieldType(field));
             this[field] = val;
         }
         this._submitter = null;
