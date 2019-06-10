@@ -11,7 +11,7 @@ This is a node application and is built using node v12. Should be compatible wit
 1. Make sure you have installed node. [node.js](https://nodejs.org/)
 2. Clone or download this repository.
 3. Go to the directory where you have cloned this application
-4. Install all dependencies - `npm install`
+4. Install all dependencies by typing in a commmand line tool (terminal) - `npm install`
 
 ### Running test
 1. Run all tests - `npm test`
