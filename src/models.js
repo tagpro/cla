@@ -15,7 +15,6 @@ try {
     organisations = JSON.parse(fs.readFileSync('./data/organizations.json'));
     tickets = JSON.parse(fs.readFileSync('./data/tickets.json'));
 } catch (error) {
-    // TODO: Update logging to use this
     log.simple(chalk.red('Error occured while loading data'), error);
 }
 

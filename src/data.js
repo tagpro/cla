@@ -1,13 +1,9 @@
 // Get data
-// TODO: Manage data asynchronously - Web workers?
 let { users, tickets, organisations, Entities } = require('./models');
 let { User, Organisation, Ticket } = Entities;
 let { CONSTANTS: { ENTITIES: { USERS, TICKETS, ORGANISATIONS } }, isEmpty } = require('./utils');
 
 // Set data
-// TODO: Hash on tags in users, map up organisation_id, tickets
-// Join everything here. Return existing user json or a new user json
-// depending on the processing
 class DataProcessor {
     constructor() {
         this.mutateData = {
@@ -72,7 +68,6 @@ class DataProcessor {
         let newEntity = new Entity(obj);
         // Index other keys
         try {
-            // TODO: Take care of non existent keys : Add null
             for (let key of newEntity.indexKeys) {
                 let normalizedKey = isEmpty(newEntity[key]) ? null : newEntity[key];
                 if (!this.mutateData[entityKey].hasOwnProperty(key)) {
