@@ -1,5 +1,9 @@
 const { preProcessor, data } = require('./../src/data');
 
+const User = require('./../src/models/User');
+const Ticket = require('./../src/models/Ticket');
+const Organisation = require('./../src/models/Organisation');
+
 jest.mock('fs');
 
 beforeAll(() => {
@@ -10,6 +14,7 @@ beforeAll(() => {
 describe('Test the pre processed data', () => {
     test('User relations test', () => {
         let [, indexedUsers] = data.getUsers();
+        expect(indexedUsers._id[1][0]).toBeInstanceOf(User);
         expect(indexedUsers._id[1][0].organisation.name).toBe('Organistaion 1');
         expect(indexedUsers._id[1][0].submittedTickets.length).toBe(2);
         expect(indexedUsers._id[1][0].assignedTickets.length).toBe(3);
@@ -19,6 +24,7 @@ describe('Test the pre processed data', () => {
 
     test('Ticket relations test', () => {
         let [, indexedTickets] = data.getTickets();
+        expect(indexedTickets._id['4cce7415-ef12-42b6-b7b5-fb00e24f9cc1'][0]).toBeInstanceOf(Ticket);
         expect(indexedTickets._id['4cce7415-ef12-42b6-b7b5-fb00e24f9cc1'][0].organisation.name).toBe('Organistaion 3');
         expect(indexedTickets._id['4cce7415-ef12-42b6-b7b5-fb00e24f9cc1'][0].submitter.name).toBe('Jenny Doe');
         expect(indexedTickets._id['4cce7415-ef12-42b6-b7b5-fb00e24f9cc1'][0].assignee.name).toBe('John Doe');
@@ -26,6 +32,7 @@ describe('Test the pre processed data', () => {
 
     test('Organisation relations test', () => {
         let [, indexedOrganisation] = data.getOrganisations();
+        expect(indexedOrganisation._id[3][0]).toBeInstanceOf(Organisation);
         expect(indexedOrganisation._id[3][0].users.length).toBe(2);
         expect(indexedOrganisation._id[1][0].tickets.length).toBe(2);
         expect(indexedOrganisation._id[2][0].tickets.length).toBe(1);
