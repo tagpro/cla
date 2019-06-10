@@ -1,35 +1,35 @@
-# cli
-A command line tool for a coding challenge.
+# zendesk-cla
+A command line tool to search for tickets, users and organisations.
 
 ## Requirements
-This is a node application and is build on v12. Should be compatible with v10 LTS (TESTED).
-
-1. [node.js](https://nodejs.org/)
-
+This is a node application and is built using node v12. Should be compatible with v10 LTS (TESTED).
 
 ## Using the tool
 1. This command line tool is an interactive session based tool. You will be asked few questions to generate a search query. Once the tool has all the parameters, it will show you the result. Once the result is shown, you can either continue to use the tool with new parameters or quit.
 
 ## Setting up
-1. Make sure you have installed node.
-2. Install dependencies - `npm install`
+1. Make sure you have installed node. [node.js](https://nodejs.org/)
+2. Clone or download this repository.
+3. Go to the directory where you have cloned this application
+4. Install all dependencies - `npm install`
 
 ### Running test
 1. Run all tests - `npm test`
-2. Run tests with coverage - `npm run coverage
+2. Run tests with coverage - `npm run coverage`
 
-Info: Root folder of 'cla' is the folder where package.json file resides
+Info: Root folder of 'cla' is the folder where `package.json` file resides
 
+## Running application
 ### Option 1
 1. Run the command `npm link` from the root folder of 'cla' to install the command line tool.
 2. Run `zendesk-cla` in the same command line interface or a new cli to start the application.
 
 ### Option 2
-1. From the root folder of 'cla', run `chmod +x ./src/index.js`.
-2. Run the command line tool - `./src/index.js`.
+You can run the application using node - `node ./src/index.js` or `npm start`.
 
 ### Option 3
-If you have issues, you can run the tool using node - `node ./src/index.js` or `npm start`.
+1. From the root folder of 'cla', run `chmod +x ./src/index.js`.
+2. Run the command line tool - `./src/index.js`.
 
 ## Assumptions
 1. Any User, Organisation or Ticket is also referenced as Entity throught the code.
