@@ -1,10 +1,8 @@
 // Map the commands to the logic/view
 const program = require('commander');
 const { prompt } = require('inquirer');
-const chalk = require('chalk');
-const { getInputType, search, display } = require('./logic');
+const { getInputType, search, display, getEntity } = require('./logic');
 const { log, CONSTANTS, normalize } = require('./utils');
-const { data } = require('./data');
 
 class cli {
     constructor() {
@@ -35,36 +33,12 @@ class cli {
             ]);
             return selection.entitySelection;
         } catch (error) {
-            log.error('Error while creating the selection prompt', error);
+            log.error('Error while selecting search', error);
         }
-    }
-
-    createEntity(entityChoice) {
-        let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES, Entity;
-        try {
-            let { Organisation, User, Ticket } = data.getEntities();
-            switch (entityChoice) {
-                case USERS: {
-                    Entity = User;
-                    break;
-                }
-                case TICKETS: {
-                    Entity = Ticket;
-                    break;
-                }
-                case ORGANISATIONS: {
-                    Entity = Organisation;
-                    break;
-                }
-            }
-        } catch (error) {
-            log.error('Error while fetching option fields', error);
-        }
-        return Entity;
     }
 
     async getSearchCriteria(entityChoice) {
-        let Entity = this.createEntity(entityChoice), choices;
+        let Entity = getEntity(entityChoice), choices;
         choices = Entity.getFields();
 
         // Handling promise errors

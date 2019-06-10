@@ -37,6 +37,30 @@ class Display {
 
 let display = new Display();
 
+let getEntity = function(entityChoice) {
+    let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES, Entity;
+    try {
+        let { Organisation, User, Ticket } = data.getEntities();
+        switch (entityChoice) {
+            case USERS: {
+                Entity = User;
+                break;
+            }
+            case TICKETS: {
+                Entity = Ticket;
+                break;
+            }
+            case ORGANISATIONS: {
+                Entity = Organisation;
+                break;
+            }
+        }
+    } catch (error) {
+        log.error('Error while fetching option fields', error);
+    }
+    return Entity;
+};
+
 let getInputType = function (choiceType) {
     let options = {
         type: 'input'
@@ -77,16 +101,16 @@ let simpleSearch = function (entity, field, value) {
     }
 
     try {
-        results = entities.filter((e) => {
+        results = entities.filter((entry) => {
             let type = Entity.getFieldType(field);
             // Match null criteria
-            if (value == null && (isEmpty(e[field]))) {
+            if (value == null && (isEmpty(entry[field]))) {
                 return true;
             }
-            if (e.hasOwnProperty(field)) {
-                if (type == ARRAY && e[field].indexOf(value) > 0) {
+            if (entry.hasOwnProperty(field)) {
+                if (type == ARRAY && entry[field].indexOf(value) > 0) {
                     return true;
-                } else if (e[field] == value) {
+                } else if (entry[field] == value) {
                     return true;
                 }
             }
@@ -130,19 +154,15 @@ let testAdvancedSearch = function (entity, field, value) {
     return false;
 };
 
-let advancedSearch = function () {
-
-};
-
 // Prepare search
 let search = function (entity, field, value) {
     // Find out if we can search the field on an entity using advanced mode
-    let isSearchable = testAdvancedSearch(entity, field, value);
+    let searchResult = testAdvancedSearch(entity, field, value);
     let result = [];
 
     // Do advanced search if possible
-    if (isSearchable) {
-        result = isSearchable;
+    if (searchResult) {
+        result = searchResult;
     }
     // Fall back to basic search if need be
     else {
@@ -159,4 +179,5 @@ module.exports = {
     getInputType,
     search,
     display,
+    getEntity,
 };

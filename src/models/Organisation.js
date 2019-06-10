@@ -89,7 +89,7 @@ module.exports = class Organisation extends Entity {
 
         console.log();
         console.group('*** Related Details ***');
-        console.log(chalk.bgWhite(chalk.black(`Number of submitted tickets - ${this.tickets.length}`)));
+        console.log(chalk.bgWhite(chalk.black(`Number of tickets - ${this.tickets.length}`)));
         if (this.tickets.length > 0) {
             for (let i in this.tickets) {
                 let ticket = this.tickets[i];
@@ -100,7 +100,7 @@ module.exports = class Organisation extends Entity {
         }
 
         console.log();
-        console.log(chalk.bgWhite(chalk.black(`Number of assigned tickets - ${this.users.length}`)));
+        console.log(chalk.bgWhite(chalk.black(`Number of Users - ${this.users.length}`)));
         if (this.users.length > 0) {
             for (let i in this.users) {
                 let user = this.users[i];

@@ -29,7 +29,7 @@ This is a node application and is build on v12. Should be compatible with v10 (N
 5. Use single try..catch around a group of async/await calls unless it is necessary not to.
 6. Objects should have singular names and Arrays should have plural names
 7. JSHint installed globally and use default settings.
-8. Try to manage type instead of using ===. But, use of === is also fine if need be.
+8. Try to manage type instead of using ===. But, use of === is also fine if need be. == helps bad API look good.
 
 ### Tradeoff
 1. Performance is a tradoff as we are not managing data using a database. Database can make search easier, indexing and managing relationships easier.
