@@ -1,5 +1,5 @@
 const { preProcessor } = require('./../src/data');
-const { CONSTANTS: { ENTITIES } } = require('./../src/utils');
+const { CONSTANTS: { ENTITIES }, normalize } = require('./../src/utils');
 const inquirer = require('inquirer');
 const { commandInterace } = require('./../src/cli');
 
@@ -50,7 +50,7 @@ describe('Test cli functions', () => {
         expect(result).toStrictEqual([ENTITIES.ORGANISATIONS, '_id', 3]);
     });
 
-    test('should return query for user search', async () => {
+    test('should return query for ticket search', async () => {
         // Set up inquirer
         // Second search for ticket
         let key = 'subject',
@@ -60,12 +60,12 @@ describe('Test cli functions', () => {
         inquirer.prompt.mockReturnValueOnce(choiceInput);
         inquirer.prompt.mockReturnValueOnce(valInput);
 
-        // Test for User as search option
-        let result = await cli.initiateSearch(ENTITIES.USERS);
-        expect(result).toStrictEqual([ENTITIES.USERS, key, value]);
+        // Test for Ticket as search option
+        let result = await cli.initiateSearch(ENTITIES.TICKETS);
+        expect(result).toStrictEqual([ENTITIES.TICKETS, key, value]);
     });
 
-    test('should return query for ticket search', async () => {
+    test('should return query for user search', async () => {
         // Set up inquirer
         // Third search for User
         let key = 'active',
@@ -75,8 +75,28 @@ describe('Test cli functions', () => {
         inquirer.prompt.mockReturnValueOnce(choiceInput);
         inquirer.prompt.mockReturnValueOnce(valInput);
 
+
+        // Test for User as search option
+        let result = await cli.initiateSearch(ENTITIES.USERS);
+        expect(result).toStrictEqual([ENTITIES.USERS, 'active', true]);
+    });
+
+    test('should return null value for empty search', async () => {
+        // Set up inquirer
+        // Third search for User
+        let key = 'name',
+            value = '',
+            choiceInput = { [PROMPT.FIELD_CHOICE]: key },
+            valInput = { [PROMPT.SEARCH_VALUE]: value };
+        inquirer.prompt.mockReturnValueOnce(choiceInput);
+        inquirer.prompt.mockReturnValueOnce(valInput);
+
         // Test for Ticket as search option
-        let result = await cli.initiateSearch(ENTITIES.TICKETS);
-        expect(result).toStrictEqual([ENTITIES.TICKETS, 'active', true]);
+        let result = await cli.initiateSearch(ENTITIES.USERS);
+        expect(result).toStrictEqual([ENTITIES.USERS, 'name', null]);
+    });
+
+    test('normalize should retun value even if the type is not present', () => {
+        expect(normalize('value', 'NO TYPE')).toBe('value');
     });
 });
