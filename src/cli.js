@@ -11,8 +11,6 @@ class cli {
             .version('1.0.0')
             .description('This tool will help you find user tickets.');
 
-        // TODO: Add help text
-        // Yes/No is Y/n. yes is the default answer
         this.program = program;
         log.clear();
         this.help();
@@ -30,7 +28,10 @@ class cli {
         log.simple('After every search, you can print this help again, ' +
             'start new search, clear your screen or quit this search tool');
         log.simple();
-        log.simple('Hint: You can use arrow keys to navigate');
+        log.message('For a True/False selection, (Y/n) option will be shown.')
+        log.message('Enter \'Yes\' or \'yes\' or \'Y\' or \'y\' for True and \'No\' or \'no\' or \'N\' or \'n\' for False');
+        log.simple();
+        log.simple('Hint: You can use arrow keys to navigate the options');
         log.simple();
         log.simple('Hit Ctrl + C to quit anytime');
         log.simple();
