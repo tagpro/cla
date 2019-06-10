@@ -10,8 +10,8 @@ const {users, tickets, organisations} = require('./data.mock');
 // `fs` APIs are used.
 let mockFiles = {
     './data/users.json': JSON.stringify(users),
-    './data/organizations.json': JSON.stringify(tickets),
-    './data/tickets.json': JSON.stringify(organisations),
+    './data/organizations.json': JSON.stringify(organisations),
+    './data/tickets.json': JSON.stringify(tickets),
 };
 function __setMockFiles(newMockFiles) {
   mockFiles = Object.create(null);
