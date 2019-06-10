@@ -1,15 +1,15 @@
 #! /usr/bin/env node
 
+// import libraries
 const { commandInterace } = require("./cli");
 const { prompt } = require('inquirer');
 const { log } = require('./utils');
 const { preProcessor } = require('./data');
-// Bootstrapping goes here
-// import libraries
 
+// Bootstrapping goes here
+log.message('Setting up your CLI application');
 // Set up the data
 preProcessor.mutate();
-
 // Set up cli
 let cli = new commandInterace();
 
@@ -19,21 +19,40 @@ let cli = new commandInterace();
  */
 async function run() {
     let stay = true;
+    let choices = ['Start New Search', 'Print Help', 'Clear Screen', 'Quit'];
+    let search = true;
+    let answer, entity, query;
 
     while (stay) {
         try {
-            let entity = await cli.getSearch();
-            let query = await cli.initiateSearch(entity);
-            cli.generateResults(...query);
-            let answer = await prompt([
+            if (search) {
+
+                entity = await cli.getSearch();
+                query = await cli.initiateSearch(entity);
+                cli.generateResults(...query);
+            }
+            answer = await prompt([
                 {
-                    type: 'confirm',
+                    type: 'rawlist',
+                    choices,
                     name: 'confirmationExit',
-                    message: 'Do you want to continue?'
+                    message: 'Your next course of action'
                 }
             ]);
-            if (!answer.confirmationExit) {
-                stay = false;
+            search = true;
+            switch (answer.confirmationExit) {
+                case choices[0]:
+                    break;
+                case choices[1]:
+                    search = false;
+                    cli.help();
+                    break;
+                case choices[2]:
+                    search = false;
+                    log.clear();
+                    break;
+                case choices[3]:
+                    stay = false;
             }
         } catch (error) {
             log.error('Failed while taking your input. Please try again', error);

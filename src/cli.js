@@ -3,6 +3,7 @@ const program = require('commander');
 const { prompt } = require('inquirer');
 const { getInputType, search, display, getEntity } = require('./logic');
 const { log, CONSTANTS, normalize } = require('./utils');
+const chalk = require('chalk');
 
 class cli {
     constructor() {
@@ -13,8 +14,28 @@ class cli {
         // TODO: Add help text
         // Yes/No is Y/n. yes is the default answer
         this.program = program;
-        log.success('Setting up cli . . . complete');
+        log.clear();
+        this.help();
     }
+
+    help() {
+        log.message('Welcome to Zendesk Command Line Search Application');
+        log.simple('––––––––––––––––––––––––––––––––––––––––––––––––––');
+        log.message('Searching is a three step process');
+        log.simple('===');
+        log.simple(`1. ${chalk.bgYellow(chalk.black('Select the type of data'))} you would like to search. It can be User, Organistaion or Ticket.`);
+        log.simple(`2. ${chalk.bgYellow(chalk.black('Select the type of field'))} from the list given`);
+        log.simple(`3. ${chalk.bgYellow(chalk.black('Enter the value'))} of the field selected in step 2`);
+        log.simple();
+        log.simple('After every search, you can print this help again, ' +
+            'start new search, clear your screen or quit this search tool');
+        log.simple();
+        log.simple('Hint: You can use arrow keys to navigate');
+        log.simple();
+        log.simple('Hit Ctrl + C to quit anytime');
+        log.simple();
+    }
+
     static entitySelection() {
         let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
         return [USERS, TICKETS, ORGANISATIONS];

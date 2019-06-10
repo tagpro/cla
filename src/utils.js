@@ -52,6 +52,10 @@ const log = {
         console.log(...message);
     },
 
+    clear() {
+        console.clear();
+    },
+
     /**
      * Function to print objects as a table on console
      * @param {Object} obj This is an object that will be printed in tabular format if the
