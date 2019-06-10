@@ -17,19 +17,19 @@ class User extends Entity {
         }
         this._submittedTickets = [];
         this._assignedTickets = [];
-        this._organistaion = null;
+        this._organisation = null;
     }
 
     get indexKeys() {
         return ['_id', 'external_id', 'name', 'email'];
     }
 
-    get organistaion() {
-        return this._organistaion;
+    get organisation() {
+        return this._organisation;
     }
 
-    updateOrganistaion(org) {
-        this._organistaion = org;
+    set organisation(org) {
+        this._organisation = org;
     }
 
     get submittedTickets() {
@@ -158,10 +158,10 @@ class User extends Entity {
         }
 
         console.log();
-        console.log(chalk.bgWhite(chalk.black(`Organistaion`)));
-        if (this.organistaion) {
-            this.spaciousPrint('external_id', this.organistaion.external_id);
-            this.spaciousPrint('name', this.organistaion.name);
+        console.log(chalk.bgWhite(chalk.black(`Organisation`)));
+        if (this.organisation) {
+            this.spaciousPrint('external_id', this.organisation.external_id);
+            this.spaciousPrint('name', this.organisation.name);
         }
         console.groupEnd();
     }

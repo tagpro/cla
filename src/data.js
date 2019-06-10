@@ -108,7 +108,7 @@ class DataProcessor {
             let org = this.getOrganisation(newUser.organization_id);
             if (org) {
                 org.addUser(newUser);
-                newUser.updateOrganistaion(org);
+                newUser.organisation = org;
             }
         }
         users = newUsers;
@@ -138,7 +138,7 @@ class DataProcessor {
             let org = this.getOrganisation(newTicket.organization_id);
             if (org) {
                 org.addTicket(newTicket);
-                newTicket.updateOrganistaion(org);
+                newTicket.organisation = org;
             }
 
         }

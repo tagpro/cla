@@ -16,7 +16,7 @@ module.exports = class Ticket extends Entity {
         }
         this._submitter = null;
         this._assignee = null;
-        this._organistaion = null;
+        this._organisation = null;
     }
 
     get indexKeys() {
@@ -39,12 +39,12 @@ module.exports = class Ticket extends Entity {
         this._assignee = user;
     }
 
-    get organistaion() {
-        return this._organistaion;
+    get organisation() {
+        return this._organisation;
     }
 
-    updateOrganistaion(org) {
-        this._organistaion = org;
+    set organisation(org) {
+        this._organisation = org;
     }
 
     // Standard fields
@@ -132,10 +132,10 @@ module.exports = class Ticket extends Entity {
         }
 
         console.log();
-        console.log(chalk.bgWhite(chalk.black(`Organistaion`)));
-        if (this.organistaion) {
-            this.spaciousPrint('external_id', this.organistaion.external_id);
-            this.spaciousPrint('name', this.organistaion.name);
+        console.log(chalk.bgWhite(chalk.black(`Organisation`)));
+        if (this.organisation) {
+            this.spaciousPrint('external_id', this.organisation.external_id);
+            this.spaciousPrint('name', this.organisation.name);
         }
         console.groupEnd();
     }
