@@ -117,9 +117,8 @@ let simpleSearch = function (entity, field, value) {
             return false;
         });
     } catch (error) {
-        log.error('Error while performing simple search for' +
+        log.error('Error while performing simple search for ' +
             `${field} with value ${value} under ${entity}`, error);
-        // return [];
     }
     return results;
 
@@ -141,6 +140,8 @@ let testAdvancedSearch = function (entity, field, value) {
             case ORGANISATIONS:
                 [, optimisedEntities] = data.getOrganisations();
                 break;
+            default:
+                throw TypeError(`Cannot find Entity of type ${entity}`);
         }
     } catch (error) {
         log.error('Unexpected Error Occured while searching. Falling back to basic search technique . . .', error);

@@ -97,10 +97,10 @@ let users = [
         "signature": "Don't Worry Be Very Happy!",
         "organization_id": 2,
         "tags": [
-            "Springville",
-            "Sutton",
-            "Hartsville/Hartley",
-            "Diaperville"
+          "Mulino",
+          "Kenwood",
+          "Wescosville",
+          "Loyalhanna"
         ],
         "suspended": false,
         "role": "admin"
@@ -123,10 +123,10 @@ let users = [
         "signature": "An ordinary signature",
         "organization_id": 3,
         "tags": [
-            "Springville",
-            "Sutton",
-            "Hartsville/Hartley",
-            "Diaperville"
+          "Gallina",
+          "Glenshaw",
+          "Rowe",
+          "Babb"
         ],
         "suspended": false,
         "role": "admin"
@@ -149,10 +149,10 @@ let users = [
         "signature": "The Beatles",
         "organization_id": 3,
         "tags": [
-            "Springville",
-            "Sutton",
-            "Hartsville/Hartley",
-            "Diaperville"
+          "Foxworth",
+          "Woodlands",
+          "Herlong",
+          "Henrietta"
         ],
         "suspended": false,
         "role": "admin"

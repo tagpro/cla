@@ -16,9 +16,9 @@ describe('Test the pre processed data', () => {
         let [, indexedUsers] = data.getUsers();
         expect(indexedUsers._id[1][0]).toBeInstanceOf(User);
         expect(indexedUsers._id[1][0].organisation.name).toBe('Organistaion 1');
-        expect(indexedUsers._id[1][0].submittedTickets.length).toBe(2);
-        expect(indexedUsers._id[1][0].assignedTickets.length).toBe(3);
-        expect(indexedUsers._id[2][0].assignedTickets.length).toBe(1);
+        expect(indexedUsers._id[1][0].submittedTickets).toHaveLength(2);
+        expect(indexedUsers._id[1][0].assignedTickets).toHaveLength(3);
+        expect(indexedUsers._id[2][0].assignedTickets).toHaveLength(1);
         expect(indexedUsers._id[2][0].assignedTickets[0].subject).toBe('A Catastrophe in Korea (North)');
     });
 
@@ -33,8 +33,8 @@ describe('Test the pre processed data', () => {
     test('Organisation relations test', () => {
         let [, indexedOrganisation] = data.getOrganisations();
         expect(indexedOrganisation._id[3][0]).toBeInstanceOf(Organisation);
-        expect(indexedOrganisation._id[3][0].users.length).toBe(2);
-        expect(indexedOrganisation._id[1][0].tickets.length).toBe(2);
-        expect(indexedOrganisation._id[2][0].tickets.length).toBe(1);
+        expect(indexedOrganisation._id[3][0].users).toHaveLength(2);
+        expect(indexedOrganisation._id[1][0].tickets).toHaveLength(2);
+        expect(indexedOrganisation._id[2][0].tickets).toHaveLength(1);
     });
 });
