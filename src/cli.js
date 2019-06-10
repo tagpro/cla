@@ -58,15 +58,13 @@ class cli {
                 name: 'searchValue',
                 ...inputOptions
             };
-            let value = await prompt([{...inputOptions}]);
+            let value = await prompt([{ ...inputOptions }]);
             if (!value.searchValue) {
                 value = null;
             } else {
                 value = normalize(value.searchValue, fieldType);
             }
-            // Get search result from logic
-            // Print onto console from logic/cli
-            return [entityChoice, choice, value];
+            return [entityChoice, choice.fieldChoice, value];
         } catch (error) {
             log.error('Some error occured while generating search options', error);
         }
@@ -74,7 +72,9 @@ class cli {
 
     generateResults(entityChoice, choice, value) {
         try {
-            let result = search(entityChoice, choice.fieldChoice, value);
+            // Get search result from logic
+            let result = search(entityChoice, choice, value);
+            // Print onto console from logic/cli
             display.log(result, entityChoice);
         } catch (error) {
             log.error('An error occured while looking for your query.', error);
