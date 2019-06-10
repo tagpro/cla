@@ -12,9 +12,24 @@ This is a node application and is build on v12. Should be compatible with v10 (N
 
 ## Setting up
 1. Make sure you have installed node.
-2. From the root folder of cla, run `chmod +x ./src/index.js`.
-3. Run the command line tool - `./src/index.js`.
-4. If you have issues, you can run the tool using node - `node ./src/index.js`.
+2. Install dependencies - `npm install`
+
+### Running test
+1. Run all tests - `npm test`
+2. Run tests with coverage - `npm run coverage
+
+Info: Root folder of 'cla' is the folder where package.json file resides
+
+### Option 1
+1. Run the command `npm link` from the root folder of 'cla' to install the command line tool.
+2. Run `zendesk-cla` in the same command line interface or a new cli to start the application.
+
+### Option 2
+1. From the root folder of 'cla', run `chmod +x ./src/index.js`.
+2. Run the command line tool - `./src/index.js`.
+
+### Option 3
+If you have issues, you can run the tool using node - `node ./src/index.js` or `npm start`.
 
 ## Assumptions
 1. Operator understands how to use command line. He/She also knows about what are all the various options represent.
