@@ -217,7 +217,7 @@ let tickets = [
         "priority": "normal",
         "status": "closed",
         "submitter_id": 2,
-        "assignee_id": 3,
+        "assignee_id": 1,
         "organization_id": 3,
         "tags": [
           "Massachusetts",
