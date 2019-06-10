@@ -38,10 +38,10 @@ class Display {
 let display = new Display();
 
 /**
- * Returns the class of the Entity we are searching for.
  * The class defines the properties we can create search criteria on.
  *
  * @param {string} entityChoice The the choice of entity selected
+ * @returns the class of the Entity we are searching for.
  */
 let getEntity = function(entityChoice) {
     let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES, Entity;
@@ -70,9 +70,8 @@ let getEntity = function(entityChoice) {
 };
 
 /**
- * Will return the inquirer prompt type for corresponding data type of field.
- *
  * @param {any} choiceType type of the field searching for
+ * @returns the inquirer prompt type for corresponding data type of field.
  */
 let getInputType = function (choiceType) {
     let options = {
@@ -99,6 +98,8 @@ let getInputType = function (choiceType) {
  * @param {string} entity The type of entity to search. Should match with Constants defined
  * @param {string} field The name of the property user is searching for
  * @param {any} value Value of the the field. Should be String, Number, Boolean or null
+ *
+ * @returns The list of entities matching the criteria
  */
 let simpleSearch = function (entity, field, value) {
     let results = [], entities, Entity;
@@ -150,7 +151,10 @@ let simpleSearch = function (entity, field, value) {
  *
  * @param {string} entity The type of entity to search. Should match with Constants defined
  * @param {string} field The name of the property user is searching for
- * @param {any} value Value of the the field. Should be String, Number, Boolean or null */
+ * @param {any} value Value of the the field. Should be String, Number, Boolean or null
+ *
+ * @returns The list of entities matching the criteria if index exists or returns false
+ */
 let testAdvancedSearch = function (entity, field, value) {
     const { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
     // Don't abstract this swtich case at data layer as this is a logical requirement
@@ -192,6 +196,8 @@ let testAdvancedSearch = function (entity, field, value) {
  * @param {string} entity The type of entity to search. Should match with Constants defined
  * @param {string} field The name of the property user is searching for
  * @param {any} value Value of the the field. Should be String, Number, Boolean or null
+ *
+ * @returns The list of entities matching the criteria
  */
 let search = function (entity, field, value) {
     // Find out if we can search the field on an entity using advanced mode

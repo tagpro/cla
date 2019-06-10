@@ -32,9 +32,11 @@ Info: Root folder of 'cla' is the folder where package.json file resides
 If you have issues, you can run the tool using node - `node ./src/index.js` or `npm start`.
 
 ## Assumptions
-1. Operator understands how to use command line. He/She also knows about what are all the various options represent.
-2. The first object in every json file has all the keys as no official API documentation was provided.
-3. Not using any database and using in memory objects to store data. My assumption is that using database would make this application hard to setup even if I use docker which is not the aim of a command line application. Installing node is easy.
+1. Any User, Organisation or Ticket is also referenced as Entity throught the code.
+2. Operator understands how to use command line. He/She also knows about what are all the various options represent.
+3. The first object in every json file has all the keys as no official API documentation was provided.
+4. `_id` is the unique key in the data and can be used to find any entity.
+5. Not using any database and using in memory objects to store data. My assumption is that using database would make this application hard to setup even if I use docker which is not the aim of a command line application. Installing node is easy.
 
 ## Conventions
 1. Class names in UpperCamelCase

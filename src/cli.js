@@ -41,6 +41,10 @@ class cli {
         let { USERS, TICKETS, ORGANISATIONS } = CONSTANTS.ENTITIES;
         return [USERS, TICKETS, ORGANISATIONS];
     }
+
+    /**
+     * @returns the selection of an Entity from command line.
+     */
     async getSearch() {
         // Set up all the queries here
         try {
@@ -59,6 +63,13 @@ class cli {
         }
     }
 
+    /**
+     * Asks for choice of field and a value from the user for an Entity
+     *
+     * @param {string} entityChoice An Entity - Defined under CONSTANTS in src/utils.js
+     *
+     * @returns Array containing the choice of Entity, choice of field and value of the field
+     */
     async initiateSearch(entityChoice) {
         let Entity = getEntity(entityChoice), choices;
         choices = Entity.getFields();
@@ -92,6 +103,13 @@ class cli {
         }
     }
 
+    /**
+     * Searches for results and then prints it in the console.
+     *
+     * @param {string} entityChoice The Entity chosen by the user to search on
+     * @param {string} choice The field to perform search on entity
+     * @param {any} value Value of the field. Can be a string, boolean, number or null
+     */
     generateResults(entityChoice, choice, value) {
         try {
             // Get search result from logic

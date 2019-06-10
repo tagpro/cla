@@ -13,18 +13,32 @@ class DataProcessor {
         };
     }
 
+    /**
+     * Get mutated and indexed User data
+     */
     get users() {
         return this.mutateData.users;
     }
 
+    /**
+     * Get mutated and indexed Tickets data
+     */
     get tickets() {
         return this.mutateData.tickets;
     }
 
+    /**
+     * Get mutated and indexed Organisation data
+     */
     get organisations() {
         return this.mutateData.organisations;
     }
 
+    /**
+     * Get User object for the id
+     *
+     * @param {number} id Unique id of the user matched using field _id
+     */
     getUser(id) {
         let user = null;
         if(id){
@@ -38,6 +52,11 @@ class DataProcessor {
         return user;
     }
 
+    /**
+     * Get Ticket object for the id
+     *
+     * @param {string} id Unique id of the ticket matched using field _id
+     */
     getTicket(id) {
         let ticket = null;
         if(id){
@@ -51,6 +70,12 @@ class DataProcessor {
         return ticket;
     }
 
+
+    /**
+     * Get Organisation object for the id
+     *
+     * @param {number} id Unique id of the organisation matched using field _id
+     */
     getOrganisation(id) {
         let org = null;
         if(id){
@@ -64,15 +89,29 @@ class DataProcessor {
         return org;
     }
 
+    /**
+     * Function will create the new Object for an Entity and all the indexes that is defined
+     * in Entity into the mutatedData of this class.
+     *
+     * It creates hashes of different indexes to search for them faster.
+     *
+     * @param {object} obj Object from the data source
+     * @param {Class} Entity A Class that will save the data for the obj
+     * @param {string} entityKey The key used in this.mutatedData to identify the Entity.
+     *
+     * @returns {object} new entity created for the obj
+     */
     optimise(obj, Entity, entityKey) {
         let newEntity = new Entity(obj);
-        // Index other keys
         try {
+            // Index keys
             for (let key of newEntity.indexKeys) {
                 let normalizedKey = isEmpty(newEntity[key]) ? null : newEntity[key];
+                // Create key if not available for index if not available
                 if (!this.mutateData[entityKey].hasOwnProperty(key)) {
                     this.mutateData[entityKey][key] = {};
                 }
+                // Create hash key for the field value if not present
                 if (!this.mutateData[entityKey][key].hasOwnProperty(normalizedKey)) {
                     this.mutateData[entityKey][key][normalizedKey] = [newEntity];
                 } else {
@@ -84,7 +123,13 @@ class DataProcessor {
         }
         return newEntity;
     }
-    // Asynchronously pre process data and update entities
+
+    /**
+     * Pre-process data and update entities
+     * Create new objects for all the Entities and create relationships between them.
+     *
+     * Uses references to store the linked entity.
+     */
     mutate() {
         // Update relationships here
         // Optimising Organisations
@@ -145,21 +190,36 @@ class DataProcessor {
 const preProcessor = new DataProcessor();
 
 let data = {
+    /**
+     * @param {boolean} raw If true, returns only the user list and not the indexes
+     * @returns all the users and indexes
+     */
     getUsers(raw = false) {
         if (raw) return users;
         return [users, preProcessor.users];
     },
 
+    /**
+     * @param {boolean} raw If true, returns only the ticket list and not the indexes
+     * @returns all the tickets and indexes
+     */
     getTickets(raw = false) {
         if (raw) return tickets;
         return [tickets, preProcessor.tickets];
     },
 
+    /**
+     * @param {boolean} raw If true, returns only the organisation list and not the indexes
+     * @returns all the organisation and indexes
+     */
     getOrganisations(raw = false) {
         if (raw) return organisations;
         return [organisations, preProcessor.organisations];
     },
 
+    /**
+     * @returns the classes for all the entities
+     */
     getEntities() {
         return Entities;
     }

@@ -20,6 +20,9 @@ class User extends Entity {
         this._organisation = null;
     }
 
+    /**
+     * @returns the indexes used to optimize search
+     */
     get indexKeys() {
         return ['_id', 'external_id', 'name', 'email'];
     }
@@ -76,7 +79,7 @@ class User extends Entity {
     }
 
     /**
-     * Returns all the fields in an array
+     * @returns all the fields in the object
      */
     static getFields() {
         return [
@@ -85,23 +88,9 @@ class User extends Entity {
         ];
     }
 
-    static get printKeys() {
-        return {
-            myKeys: User.commonFields,
-            associations: [{
-                objKey: 'organization_id',
-                entity: ORGANISATIONS
-            }, {
-                objKey: 'ticket_ids',
-                entity: TICKETS
-            }],
-        };
-    }
-
     /**
-     * Returns the type of the field provided.
-     *
      * @param {string} field The type of field
+     * @returns the type of the field provided.
      */
     static getFieldType(field) {
         const types = {
@@ -129,6 +118,10 @@ class User extends Entity {
         return types[field];
     }
 
+
+    /**
+     * Pretty prints the object and its relations
+     */
     log() {
         for (let key of User.getFields()) {
             this.spaciousPrint(key, this[key]);

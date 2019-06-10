@@ -16,10 +16,6 @@ class Entity {
         throw new Error('getFieldType if not implemented');
     }
 
-    static get printKeys () {
-        throw new Error('printKeys if not implemented. Need this to print');
-    }
-
     spaciousPrint(key, val) {
         let spaces = this.tabWidth - key.length > 0 ? this.tabWidth - key.length : 0;
         for (let i = 0; i < spaces; i++) {

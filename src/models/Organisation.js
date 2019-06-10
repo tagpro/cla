@@ -51,6 +51,10 @@ module.exports = class Organisation extends Entity {
         ];
     }
 
+
+    /**
+     * @returns all the fields in the object
+     */
     static getFields() {
         return Organisation.commonFields;
     }
@@ -59,6 +63,10 @@ module.exports = class Organisation extends Entity {
         return [];
     }
 
+    /**
+     * @param {string} field The type of field
+     * @returns the type of the field provided.
+     */
     static getFieldType(field) {
         let fieldTypes = {
             '_id': NUMBER,
@@ -75,13 +83,9 @@ module.exports = class Organisation extends Entity {
         return fieldTypes[field];
     }
 
-    static get printKeys() {
-        return {
-            myKeys: Organisation.commonFields,
-            associations: [],
-        };
-    }
-
+    /**
+     * Pretty prints the object and its relations
+     */
     log() {
         for (let key of Organisation.getFields()) {
             this.spaciousPrint(key, this[key]);

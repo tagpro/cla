@@ -19,6 +19,9 @@ module.exports = class Ticket extends Entity {
         this._organisation = null;
     }
 
+    /**
+     * @returns the indexes used to optimize search
+     */
     get indexKeys() {
         return ['_id', 'external_id', 'organization_id'];
     }
@@ -81,6 +84,10 @@ module.exports = class Ticket extends Entity {
         ];
     }
 
+    /**
+     * @param {string} field The type of field
+     * @returns the type of the field provided.
+     */
     static getFieldType(field) {
         let fieldTypes = {
             '_id': STRING,
@@ -103,14 +110,9 @@ module.exports = class Ticket extends Entity {
         return fieldTypes[field];
     }
 
-    static get printKeys() {
-        return {
-            myKeys: Ticket.commonFields,
-            associations: [],
-        };
-    }
-
-
+    /**
+     * Pretty prints the object and its relations
+     */
     log() {
         for (let key of Ticket.getFields()) {
             this.spaciousPrint(key, this[key]);
