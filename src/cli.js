@@ -37,7 +37,7 @@ class cli {
         }
     }
 
-    async getSearchCriteria(entityChoice) {
+    async initiateSearch(entityChoice) {
         let Entity = getEntity(entityChoice), choices;
         choices = Entity.getFields();
 
@@ -66,10 +66,18 @@ class cli {
             }
             // Get search result from logic
             // Print onto console from logic/cli
+            return [entityChoice, choice, value];
+        } catch (error) {
+            log.error('Some error occured while generating search options', error);
+        }
+    }
+
+    generateResults(entityChoice, choice, value) {
+        try {
             let result = search(entityChoice, choice.fieldChoice, value);
             display.log(result, entityChoice);
         } catch (error) {
-            log.error('Some error occured while generating search options', error);
+            log.error('An error occured while looking for your query.', error);
         }
     }
 }

@@ -23,7 +23,8 @@ async function run() {
     while (stay) {
         try {
             let entity = await cli.getSearch();
-            await cli.getSearchCriteria(entity);
+            let query = await cli.initiateSearch(entity);
+            cli.generateResults(...query);
             let answer = await prompt([
                 {
                     type: 'confirm',
