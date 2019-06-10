@@ -43,7 +43,7 @@ let organisations = [
             "domain6.com"
         ],
         "created_at": "2016-05-21T11:10:28 -10:00",
-        "details": "Mega Org 3",
+        "details": "",
         "shared_tickets": true,
         "tags": [
             "tag4",
@@ -92,7 +92,6 @@ let users = [
         "locale": "en-AU",
         "timezone": "Sydney",
         "last_login_at": "2013-08-04T01:03:27 -10:00",
-        "email": "email2@domain.com",
         "phone": "1235-567-890",
         "signature": "Don't Worry Be Very Happy!",
         "organization_id": 2,
