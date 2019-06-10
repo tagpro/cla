@@ -55,20 +55,6 @@ const log = {
     clear() {
         console.clear();
     },
-
-    /**
-     * Function to print objects as a table on console
-     * @param {Object} obj This is an object that will be printed in tabular format if the
-     * console supports it
-     */
-    table(obj) {
-        if (console.hasOwnProperty('table')) {
-            console.table(obj);
-        } else {
-            // Should work well if obj has toString
-            console.log(obj);
-        }
-    }
 };
 
 let isEmpty = function (val) {
