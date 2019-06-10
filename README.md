@@ -2,7 +2,7 @@
 A command line tool for a coding challenge.
 
 ## Requirements
-This is a node application and is build on v12. Should be compatible with v10 (NOT TESTED).
+This is a node application and is build on v12. Should be compatible with v10 LTS (TESTED).
 
 1. [node.js](https://nodejs.org/)
 
