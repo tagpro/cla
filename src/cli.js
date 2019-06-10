@@ -10,7 +10,7 @@ class cli {
             .version('1.0.0')
             .description('This tool will help you find user tickets.');
 
-        // TODO: Add help options
+        // TODO: Add help text
         // Yes/No is Y/n. yes is the default answer
         this.program = program;
         log.success('Setting up cli . . . complete');

@@ -4,7 +4,7 @@
   "description": "A command line tool to search for tickets and search in a human readable format",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "jest",
     "start": "node ."
   },
   "repository": {
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/tagpro/zendesk-cla#readme",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.1.4"
+    "jest": "^24.8.0",
+    "mock-fs": "^4.10.1"
   },
   "dependencies": {
     "chalk": "^2.4.2",

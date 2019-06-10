@@ -9,7 +9,7 @@ const User = require('./models/User');
 const Ticket = require('./models/Ticket');
 const Organisation = require('./models/Organisation');
 // Setup all models
-let users = [], organisations = [], tickets = []
+let users = [], organisations = [], tickets = [];
 try {
     users = JSON.parse(fs.readFileSync('./data/users.json'));
     organisations = JSON.parse(fs.readFileSync('./data/organizations.json'));
