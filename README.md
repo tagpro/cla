@@ -24,6 +24,8 @@ Info: Root folder of 'cla' is the folder where `package.json` file resides
 1. Run the command `npm link` from the root folder of 'cla' to install the command line tool.
 2. Run `zendesk-cla` in the same command line interface or a new cli to start the application.
 
+Warning: Make sure you run this command in a directory where the data folder with required files are present
+
 ### Option 2
 You can run the application using node - `node ./src/index.js` or `npm start`.
 
